@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Donate to GAGS Foundation. Your contribution helps provide food, training, counseling, and hope to widows in need.">
+    <title>Donate — GAGS Foundation</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="site-header" id="site-header">
+        <div class="header-inner">
+            <a href="index.html" class="logo"><div class="logo-icon">G</div><span class="logo-text">GAGS Foundation</span></a>
+            <nav class="nav-links">
+                <a href="index.html">Home</a><a href="about.html">About Us</a><a href="programs.html">Programs</a>
+                <a href="gallery.html">Gallery</a><a href="contact.html">Contact</a>
+            </nav>
+            <a href="donations.html" class="header-cta">Donate Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+            <button class="hamburger" id="hamburger" aria-label="Toggle Menu"><span></span><span></span><span></span></button>
+        </div>
+        <nav class="mobile-menu" id="mobile-menu">
+            <a href="index.html">Home</a><a href="about.html">About Us</a><a href="programs.html">Programs</a>
+            <a href="gallery.html">Gallery</a><a href="donations.html">Donate</a><a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <div class="page-hero-bg" style="background-image:url('assets/images/food-support.png');"></div>
+        <div class="container">
+            <div class="breadcrumb"><a href="index.html">Home</a> <span>/</span> <span>Donate</span></div>
+            <h1 class="stagger-text">Make a Donation</h1>
+            <p>Your generous contribution helps provide food, training, counseling, and hope to widows in need.</p>
+        </div>
+    </section>
+
+    <!-- DONATION SECTION -->
+    <section class="section">
+        <div class="container">
+            <div class="donation-grid">
+                <div>
+                    <span class="section-label">Choose an Amount</span>
+                    <h2 class="stagger-text">Every Gift Matters</h2>
+                    <p style="margin:16px 0 32px; line-height:1.8;">Select a preset amount or enter a custom donation. Every naira goes directly toward empowering widows through our programs.</p>
+
+                    <div class="donation-amounts">
+                        <div class="donation-amount" data-amount="5000">
+                            <div class="amount">₦5,000</div>
+                            <p>Feeds a family for a week</p>
+                        </div>
+                        <div class="donation-amount" data-amount="10000">
+                            <div class="amount">₦10,000</div>
+                            <p>One month of school supplies</p>
+                        </div>
+                        <div class="donation-amount selected" data-amount="25000">
+                            <div class="amount">₦25,000</div>
+                            <p>Skills training materials</p>
+                        </div>
+                        <div class="donation-amount" data-amount="50000">
+                            <div class="amount">₦50,000</div>
+                            <p>Full counseling program</p>
+                        </div>
+                        <div class="donation-amount" data-amount="100000">
+                            <div class="amount">₦100,000</div>
+                            <p>Start a small business</p>
+                        </div>
+                        <div class="donation-amount" data-amount="custom">
+                            <div class="amount">Custom</div>
+                            <p>Enter your own amount</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-form" style="margin-top:24px;">
+                        <div class="form-group">
+                            <label for="custom-amount">Custom Amount (₦)</label>
+                            <input type="number" id="custom-amount" class="custom-amount-input" placeholder="Enter amount" value="25000">
+                        </div>
+                        <div class="form-group">
+                            <label for="donor-name">Your Name</label>
+                            <input type="text" id="donor-name" placeholder="Enter your full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="donor-email">Email Address</label>
+                            <input type="email" id="donor-email" placeholder="your@email.com">
+                        </div>
+                        <button class="btn btn-primary" style="width:100%; justify-content:center; padding:16px;">
+                            Donate Now <span class="btn-arrow">→</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <!-- BANK DETAILS -->
+                    <div class="bank-details reveal" style="margin-bottom:32px;">
+                        <h3>Bank Transfer Details</h3>
+                        <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:20px;">You can also donate via direct bank transfer:</p>
+                        <div class="bank-detail-row"><span>Bank Name</span><span>First Bank Nigeria</span></div>
+                        <div class="bank-detail-row"><span>Account Name</span><span>GAGS Foundation</span></div>
+                        <div class="bank-detail-row"><span>Account Number</span><span>0123456789</span></div>
+                        <div class="bank-detail-row"><span>Sort Code</span><span>011151003</span></div>
+                    </div>
+
+                    <!-- THANK YOU -->
+                    <div class="vm-card reveal" style="border-left:4px solid var(--cta); margin-bottom:32px;">
+                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+                            <h3>Thank You!</h3>
+                            <i data-lucide="heart" style="width:20px; height:20px; color:var(--cta);"></i>
+                        </div>
+                        <p style="line-height:1.8; margin-top:12px;">Your donation helps provide food, training, counseling, and hope to widows in need. Together, we can restore dignity and rebuild lives. Every contribution, no matter the size, makes a real difference.</p>
+                    </div>
+
+                    <!-- DONATION BREAKDOWN -->
+                    <div style="background:var(--white); border:1px solid var(--border); padding:28px;">
+                        <h3 style="margin-bottom:16px;">Where Your Money Goes</h3>
+                        <div style="margin-bottom:16px;">
+                            <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:0.9rem;"><span>Programs & Services</span><span style="font-weight:700; color:var(--primary);">70%</span></div>
+                            <div style="height:8px; background:var(--bg-alt);"><div style="width:70%; height:100%; background:var(--primary);"></div></div>
+                        </div>
+                        <div style="margin-bottom:16px;">
+                            <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:0.9rem;"><span>Emergency Relief</span><span style="font-weight:700; color:var(--cta);">15%</span></div>
+                            <div style="height:8px; background:var(--bg-alt);"><div style="width:15%; height:100%; background:var(--cta);"></div></div>
+                        </div>
+                        <div style="margin-bottom:16px;">
+                            <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:0.9rem;"><span>Operations</span><span style="font-weight:700; color:var(--accent);">10%</span></div>
+                            <div style="height:8px; background:var(--bg-alt);"><div style="width:10%; height:100%; background:var(--accent);"></div></div>
+                        </div>
+                        <div>
+                            <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:0.9rem;"><span>Awareness</span><span style="font-weight:700; color:var(--green-light);">5%</span></div>
+                            <div style="height:8px; background:var(--bg-alt);"><div style="width:5%; height:100%; background:var(--green-light);"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW DONATION HELPS -->
+    <section class="section" style="background:var(--bg-alt);">
+        <div class="container">
+            <div class="section-header text-center mx-auto" style="max-width:640px;">
+                <span class="section-label">Your Impact</span>
+                <h2 class="stagger-text">How Your Donation Helps</h2>
+            </div>
+            <div class="help-grid">
+                <div class="help-card reveal">
+                    <div class="help-icon"><i data-lucide="utensils" style="width:28px; height:28px;"></i></div>
+                    <h3>Feed Families</h3>
+                    <p style="margin-top:12px; font-size:0.9rem; color:var(--text-muted);">Provide nutritious meals to widows and their children, ensuring no family goes hungry.</p>
+                </div>
+                <div class="help-card reveal">
+                    <div class="help-icon"><i data-lucide="book-open" style="width:28px; height:28px;"></i></div>
+                    <h3>Educate Children</h3>
+                    <p style="margin-top:12px; font-size:0.9rem; color:var(--text-muted);">Fund scholarships and school supplies for children who would otherwise miss out on education.</p>
+                </div>
+                <div class="help-card reveal">
+                    <div class="help-icon"><i data-lucide="briefcase" style="width:28px; height:28px;"></i></div>
+                    <h3>Build Businesses</h3>
+                    <p style="margin-top:12px; font-size:0.9rem; color:var(--text-muted);">Support micro-loans and training for widows to start sustainable small businesses.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section">
+        <div class="container" style="max-width:800px;">
+            <div class="section-header text-center mx-auto" style="max-width:640px;">
+                <span class="section-label">Questions</span>
+                <h2 class="stagger-text">Frequently Asked Questions</h2>
+            </div>
+            <div class="faq-item open">
+                <div class="faq-question">Is my donation tax-deductible? <span class="faq-icon">+</span></div>
+                <div class="faq-answer"><p style="color:var(--text-body); line-height:1.8;">Yes, GAGS Foundation is a registered non-profit organization. All donations are tax-deductible to the extent allowed by law. You will receive a receipt for your records.</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">How is my donation used? <span class="faq-icon">+</span></div>
+                <div class="faq-answer"><p style="color:var(--text-body); line-height:1.8;">70% of all donations go directly to programs and services. The remaining 30% covers emergency relief, operations, and community awareness campaigns.</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Can I donate in-kind? <span class="faq-icon">+</span></div>
+                <div class="faq-answer"><p style="color:var(--text-body); line-height:1.8;">Absolutely! We welcome donations of food, clothing, school supplies, and other essential items. Please contact us to arrange a drop-off or pickup.</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Can I set up recurring donations? <span class="faq-icon">+</span></div>
+                <div class="faq-answer"><p style="color:var(--text-body); line-height:1.8;">Yes, we encourage monthly giving! Contact us to set up a standing order or recurring bank transfer to support our ongoing programs.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-col footer-about">
+                <div class="logo" style="margin-bottom:16px;"><div class="logo-icon" style="background:var(--cta);">G</div><span class="logo-text" style="color:var(--white);">GAGS Foundation</span></div>
+                <p>We are committed to supporting widows through empowerment, counseling, education, and community care.</p>
+                <div class="footer-social"><a href="#" aria-label="Facebook"><i data-lucide="facebook"></i></a><a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a><a href="#" aria-label="Twitter"><i data-lucide="twitter"></i></a></div>
+            </div>
+            <div class="footer-col"><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="programs.html">Programs</a></li><li><a href="gallery.html">Gallery</a></li></ul></div>
+            <div class="footer-col"><h4>Get Involved</h4><ul><li><a href="donations.html">Donate</a></li><li><a href="contact.html">Volunteer</a></li><li><a href="contact.html">Partner With Us</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+            <div class="footer-col"><h4>Contact Info</h4><ul>
+                <li style="display:flex; align-items:center; gap:8px;"><i data-lucide="mail" style="width:16px; height:16px; min-width:16px;"></i> info@gagsfoundation.org</li>
+                <li style="display:flex; align-items:center; gap:8px;"><i data-lucide="phone" style="width:16px; height:16px; min-width:16px;"></i> +234 800 000 0000</li>
+                <li style="display:flex; align-items:center; gap:8px;"><i data-lucide="map-pin" style="width:16px; height:16px; min-width:16px;"></i> Lagos, Nigeria</li>
+            </ul></div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2025 GAGS Foundation. All rights reserved.</p></div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="script.js"></script>
+</body>
+</html>

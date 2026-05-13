@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore the GAGS Foundation gallery - photos and stories from our outreach programs, events, and community impact.">
+    <title>Gallery — GAGS Foundation</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="site-header" id="site-header">
+        <div class="header-inner">
+            <a href="index.html" class="logo"><div class="logo-icon">G</div><span class="logo-text">GAGS Foundation</span></a>
+            <nav class="nav-links">
+                <a href="index.html">Home</a><a href="about.html">About Us</a><a href="programs.html">Programs</a>
+                <a href="gallery.html" class="active">Gallery</a><a href="contact.html">Contact</a>
+            </nav>
+            <a href="donations.html" class="header-cta">Donate Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+            <button class="hamburger" id="hamburger" aria-label="Toggle Menu"><span></span><span></span><span></span></button>
+        </div>
+        <nav class="mobile-menu" id="mobile-menu">
+            <a href="index.html">Home</a><a href="about.html">About Us</a><a href="programs.html">Programs</a>
+            <a href="gallery.html">Gallery</a><a href="donations.html">Donate</a><a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <div class="page-hero-bg" style="background-image:url('assets/images/community-outreach.png');"></div>
+        <div class="container">
+            <div class="breadcrumb"><a href="index.html">Home</a> <span>/</span> <span>Gallery</span></div>
+            <h1 class="stagger-text">Our Gallery</h1>
+            <p>Moments of hope, empowerment, and community captured through our lens.</p>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="section">
+        <div class="container">
+            <div class="gallery-filters">
+                <button class="gallery-filter-btn active" data-filter="all">All</button>
+                <button class="gallery-filter-btn" data-filter="outreach">Outreach</button>
+                <button class="gallery-filter-btn" data-filter="training">Training</button>
+                <button class="gallery-filter-btn" data-filter="support">Support</button>
+                <button class="gallery-filter-btn" data-filter="events">Events</button>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item reveal" data-category="outreach">
+                    <img src="assets/images/hero-banner.png" alt="Community gathering event">
+                    <div class="gallery-item-overlay"><i data-lucide="zoom-in" style="width:32px; height:32px;"></i></div>
+                </div>
+                <div class="gallery-item reveal" data-category="training">
+                    <img src="assets/images/programs-skills.png" alt="Skills training workshop">
+                    <div class="gallery-item-overlay"><i data-lucide="zoom-in" style="width:32px; height:32px;"></i></div>
+                </div>
+                <div class="gallery-item reveal" data-category="support">
+                    <img src="assets/images/programs-counseling.png" alt="Counseling session">
+                    <div class="gallery-item-overlay"><i data-lucide="zoom-in" style="width:32px; height:32px;"></i></div>
+                </div>
+                <div class="gallery-item reveal" data-category="support">
+                    <img src="assets/images/food-support.png" alt="Food distribution event">
+                    <div class="gallery-item-overlay"><i data-lucide="zoom-in" style="width:32px; height:32px;"></i></div>
+                </div>
+                <div class="gallery-item reveal" data-category="outreach">
+                    <img src="assets/images/community-outreach.png" alt="Community outreach event">
+                    <div class="gallery-item-overlay"><i data-lucide="zoom-in" style="width:32px; height:32px;"></i></div>
+                </div>
+                <div class="gallery-item reveal" data-category="events">
+                    <img src="assets/images/education-support.png" alt="Education support program">
+                    <div class="gallery-item-overlay"><i data-lucide="zoom-in" style="width:32px; height:32px;"></i></div>
+                </div>
+                <div class="gallery-item reveal" data-category="training">
+                    <img src="assets/images/programs-counseling.png" alt="Group training session">
+                    <div class="gallery-item-overlay"><i data-lucide="zoom-in" style="width:32px; height:32px;"></i></div>
+                </div>
+                <div class="gallery-item reveal" data-category="events">
+                    <img src="assets/images/hero-banner.png" alt="Annual community event">
+                    <div class="gallery-item-overlay"><i data-lucide="zoom-in" style="width:32px; height:32px;"></i></div>
+                </div>
+                <div class="gallery-item reveal" data-category="outreach">
+                    <img src="assets/images/food-support.png" alt="Relief distribution">
+                    <div class="gallery-item-overlay"><i data-lucide="zoom-in" style="width:32px; height:32px;"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STORIES -->
+    <section class="section" style="background:var(--bg-alt);">
+        <div class="container">
+            <div class="section-header text-center mx-auto" style="max-width:640px;">
+                <span class="section-label">Stories of Impact</span>
+                <h2 class="stagger-text">Behind Every Photo Is a Story</h2>
+                <p>Real stories from the widows and communities whose lives have been transformed.</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card reveal">
+                    <p>"After losing my husband, I thought life was over. GAGS Foundation's skills program taught me tailoring, and today I own my own shop. My children are back in school."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">M</div>
+                        <div><strong>Mama Grace</strong><div style="font-size:0.8rem; color:var(--text-muted);">Skills Graduate, 2023</div></div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <p>"The counseling sessions gave me the strength to face each day. I found a community of women who understand my pain, and together we are healing."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">J</div>
+                        <div><strong>Joy O.</strong><div style="font-size:0.8rem; color:var(--text-muted);">Counseling Beneficiary</div></div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <p>"When they came with food and clothing for my family, I wept with gratitude. It was the first time in months that my children slept with full stomachs."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">B</div>
+                        <div><strong>Blessing A.</strong><div style="font-size:0.8rem; color:var(--text-muted);">Relief Beneficiary</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-banner">
+        <div class="container">
+            <h2 class="stagger-text" style="color:var(--white);">Be Part of the Story</h2>
+            <p>Help us create more moments of hope and transformation in the lives of widows.</p>
+            <a href="donations.html" class="btn btn-primary" style="background:var(--white); color:var(--primary);">Support Us <span class="btn-arrow">→</span></a>
+        </div>
+    </section>
+
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" aria-label="Close lightbox"><i data-lucide="x" style="width:24px; height:24px;"></i></button>
+        <img src="" alt="Gallery fullview">
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-col footer-about">
+                <div class="logo" style="margin-bottom:16px;"><div class="logo-icon" style="background:var(--cta);">G</div><span class="logo-text" style="color:var(--white);">GAGS Foundation</span></div>
+                <p>We are committed to supporting widows through empowerment, counseling, education, and community care.</p>
+                <div class="footer-social"><a href="#" aria-label="Facebook"><i data-lucide="facebook"></i></a><a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a><a href="#" aria-label="Twitter"><i data-lucide="twitter"></i></a></div>
+            </div>
+            <div class="footer-col"><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="programs.html">Programs</a></li><li><a href="gallery.html">Gallery</a></li></ul></div>
+            <div class="footer-col"><h4>Get Involved</h4><ul><li><a href="donations.html">Donate</a></li><li><a href="contact.html">Volunteer</a></li><li><a href="contact.html">Partner With Us</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+            <div class="footer-col"><h4>Contact Info</h4><ul>
+                <li style="display:flex; align-items:center; gap:8px;"><i data-lucide="mail" style="width:16px; height:16px; min-width:16px;"></i> info@gagsfoundation.org</li>
+                <li style="display:flex; align-items:center; gap:8px;"><i data-lucide="phone" style="width:16px; height:16px; min-width:16px;"></i> +234 800 000 0000</li>
+                <li style="display:flex; align-items:center; gap:8px;"><i data-lucide="map-pin" style="width:16px; height:16px; min-width:16px;"></i> Lagos, Nigeria</li>
+            </ul></div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2025 GAGS Foundation. All rights reserved.</p></div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="script.js"></script>
+</body>
+</html>
