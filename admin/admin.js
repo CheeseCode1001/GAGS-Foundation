@@ -1,4 +1,19 @@
 // ============ ADMIN INITIALIZATION ============
+
+function showTableSkeletons(tbodyId, colCount) {
+    const tbody = document.getElementById(tbodyId);
+    if (!tbody) return;
+    tbody.innerHTML = Array(5).fill(`<tr style="border-bottom:1px solid var(--border);">
+            ${Array(colCount).fill('<td style="padding:16px 24px;"><div class="skeleton skeleton-text" style="margin:0;"></div></td>').join('')}
+        </tr>`).join('');
+}
+
+function showGallerySkeletons() {
+    const grid = document.getElementById('gallery-grid');
+    if (!grid) return;
+    grid.innerHTML = Array(4).fill(`<div class="gallery-item skeleton" style="position:relative; padding-bottom:100%; border-radius:8px;"></div>`).join('');
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     if (typeof lucide !== 'undefined') {
         lucide.createIcons();
@@ -121,6 +136,7 @@ async function loadAllData() {
 // ============ PROGRAMS MANAGEMENT ============
 async function loadPrograms() {
     try {
+        showTableSkeletons("programs-tbody", 4);
         const response = await fetch('../api/programs');
         const programs = await response.json();
         const tbody = document.getElementById('programs-tbody');
@@ -143,7 +159,14 @@ async function loadPrograms() {
         });
 
         if (programs.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:20px; color:var(--text-muted);">No programs yet</td></tr>';
+            tbody.innerHTML = `<tr><td colspan="4">
+                <div class="empty-state active" style="padding: 60px 20px; display:flex; flex-direction:column; align-items:center; gap:16px; width:100%;">
+                    <i data-lucide="folder-open" class="empty-state-icon" style="width:48px;height:48px;color:var(--text-muted);opacity:0.5;"></i>
+                    <h3 class="empty-state-title" style="margin:0;color:var(--primary);font-size:1.25rem;">No Programs Found</h3>
+                    <p class="empty-state-desc" style="margin:0;color:var(--text-muted);">You haven't added any programs yet.</p>
+                </div>
+            </td></tr>`;
+            if (typeof lucide !== 'undefined') lucide.createIcons();
         }
     } catch (error) {
         console.error('Load programs error:', error);
@@ -171,6 +194,7 @@ document.getElementById('add-program-btn').addEventListener('click', () => {
 // ============ PROJECTS MANAGEMENT ============
 async function loadProjects() {
     try {
+        showTableSkeletons("projects-tbody", 5);
         const response = await fetch('../api/projects');
         const projects = await response.json();
         const tbody = document.getElementById('projects-tbody');
@@ -195,7 +219,14 @@ async function loadProjects() {
         });
 
         if (projects.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:20px; color:var(--text-muted);">No projects yet</td></tr>';
+            tbody.innerHTML = `<tr><td colspan="5">
+                <div class="empty-state active" style="padding: 60px 20px; display:flex; flex-direction:column; align-items:center; gap:16px; width:100%;">
+                    <i data-lucide="clipboard-list" class="empty-state-icon" style="width:48px;height:48px;color:var(--text-muted);opacity:0.5;"></i>
+                    <h3 class="empty-state-title" style="margin:0;color:var(--primary);font-size:1.25rem;">No Active Projects</h3>
+                    <p class="empty-state-desc" style="margin:0;color:var(--text-muted);">You don't have any projects yet.</p>
+                </div>
+            </td></tr>`;
+            if (typeof lucide !== 'undefined') lucide.createIcons();
         }
     } catch (error) {
         console.error('Load projects error:', error);
@@ -221,6 +252,7 @@ document.getElementById('add-project-btn').addEventListener('click', () => {
 // ============ DONATIONS MANAGEMENT ============
 async function loadDonations() {
     try {
+        showTableSkeletons("donations-tbody", 5);
         const response = await fetch('../api/donations');
         const donations = await response.json();
         const tbody = document.getElementById('donations-tbody');
@@ -242,7 +274,14 @@ async function loadDonations() {
         });
 
         if (donations.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:20px; color:var(--text-muted);">No donations yet</td></tr>';
+            tbody.innerHTML = `<tr><td colspan="5">
+                <div class="empty-state active" style="padding: 60px 20px; display:flex; flex-direction:column; align-items:center; gap:16px; width:100%;">
+                    <i data-lucide="heart" class="empty-state-icon" style="width:48px;height:48px;color:var(--text-muted);opacity:0.5;"></i>
+                    <h3 class="empty-state-title" style="margin:0;color:var(--primary);font-size:1.25rem;">No Donations Yet</h3>
+                    <p class="empty-state-desc" style="margin:0;color:var(--text-muted);">You haven't received any donations yet.</p>
+                </div>
+            </td></tr>`;
+            if (typeof lucide !== 'undefined') lucide.createIcons();
         }
     } catch (error) {
         console.error('Load donations error:', error);
@@ -260,6 +299,7 @@ window.deleteDonation = function (id) {
 // ============ GALLERY MANAGEMENT ============
 async function loadGallery() {
     try {
+        showGallerySkeletons();
         const response = await fetch('../api/gallery');
         const gallery = await response.json();
         const grid = document.getElementById('gallery-grid');
@@ -283,7 +323,14 @@ async function loadGallery() {
         });
 
         if (gallery.length === 0) {
-            grid.innerHTML = '<p style="grid-column:1/-1; text-align:center; color:var(--text-muted); padding:40px 20px;">No gallery items yet</p>';
+            grid.innerHTML = `
+                <div class="empty-state active" style="grid-column: 1 / -1; padding: 60px 20px; display:flex; flex-direction:column; align-items:center; gap:16px;">
+                    <i data-lucide="image" class="empty-state-icon" style="width:48px;height:48px;color:var(--text-muted);opacity:0.5;"></i>
+                    <h3 class="empty-state-title" style="margin:0;color:var(--primary);font-size:1.25rem;">Gallery is Empty</h3>
+                    <p class="empty-state-desc" style="margin:0;color:var(--text-muted);">You haven't uploaded any photos yet.</p>
+                </div>
+            `;
+            if (typeof lucide !== 'undefined') lucide.createIcons();
         }
     } catch (error) {
         console.error('Load gallery error:', error);
@@ -305,6 +352,7 @@ document.getElementById('add-gallery-btn').addEventListener('click', () => {
 // ============ PARTNERS MANAGEMENT ============
 async function loadPartners() {
     try {
+        showTableSkeletons("partners-tbody", 5);
         const response = await fetch('../api/partners');
         const partners = await response.json();
         const tbody = document.getElementById('partners-tbody');
@@ -325,7 +373,14 @@ async function loadPartners() {
         });
 
         if (partners.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:20px; color:var(--text-muted);">No partnership applications yet</td></tr>';
+            tbody.innerHTML = `<tr><td colspan="5">
+                <div class="empty-state active" style="padding: 60px 20px; display:flex; flex-direction:column; align-items:center; gap:16px; width:100%;">
+                    <i data-lucide="users" class="empty-state-icon" style="width:48px;height:48px;color:var(--text-muted);opacity:0.5;"></i>
+                    <h3 class="empty-state-title" style="margin:0;color:var(--primary);font-size:1.25rem;">No Partners Yet</h3>
+                    <p class="empty-state-desc" style="margin:0;color:var(--text-muted);">You don't have any partnership applications yet.</p>
+                </div>
+            </td></tr>`;
+            if (typeof lucide !== 'undefined') lucide.createIcons();
         }
     } catch (error) {
         console.error('Load partners error:', error);

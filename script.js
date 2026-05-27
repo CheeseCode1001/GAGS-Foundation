@@ -223,11 +223,18 @@ function initGallery() {
     return;
   }
 
+  grid.innerHTML = Array(6).fill(`
+      <div class="gallery-item skeleton" style="height: 300px; border-radius: 8px;"></div>
+  `).join('');
+
   fetch('api/gallery')
     .then(res => res.json())
     .then(items => {
       grid.innerHTML = '';
-      if (empty) empty.style.display = items.length === 0 ? 'block' : 'none';
+      if (empty) {
+        if (items.length === 0) empty.classList.add('active');
+        else empty.classList.remove('active');
+      }
 
       items.forEach((item, index) => {
         const div = document.createElement('div');
@@ -235,7 +242,7 @@ function initGallery() {
         div.setAttribute('data-category', (item.category || 'other').toLowerCase());
         
         div.innerHTML = `
-            <img src="${item.image_url}" alt="${item.title || 'Gallery image'}">
+            <img src="${item.image}" alt="${item.title || 'Gallery image'}">
             <div class="gallery-item-overlay"><i data-lucide="zoom-in" style="width:32px; height:32px;"></i></div>
         `;
         grid.appendChild(div);
@@ -367,11 +374,25 @@ function initProjects() {
 
   if (!grid) return;
 
+  grid.innerHTML = Array(6).fill(`
+      <div class="card" style="border:none; padding:0; overflow:hidden;">
+          <div class="skeleton skeleton-img" style="border-radius:0;"></div>
+          <div style="padding:20px;">
+              <div class="skeleton skeleton-text" style="width:40%; margin-bottom:16px;"></div>
+              <div class="skeleton skeleton-text"></div>
+              <div class="skeleton skeleton-text short"></div>
+          </div>
+      </div>
+  `).join('');
+
   fetch('api/projects')
     .then(res => res.json())
     .then(projects => {
       grid.innerHTML = '';
-      empty.style.display = projects.length === 0 ? 'block' : 'none';
+      if (empty) {
+        if (projects.length === 0) empty.classList.add('active');
+        else empty.classList.remove('active');
+      }
 
       projects.forEach((project, index) => {
         const progress = project.goal_amount > 0 ? Math.round((project.raised_amount / project.goal_amount) * 100) : 0;
@@ -434,11 +455,26 @@ function initPrograms() {
 
   if (!grid) return;
 
+  grid.innerHTML = Array(6).fill(`
+      <div class="card" style="border:none; padding:0; overflow:hidden;">
+          <div class="skeleton skeleton-img" style="border-radius:0;"></div>
+          <div style="padding:20px;">
+              <div class="skeleton skeleton-text" style="width:40%; margin-bottom:16px;"></div>
+              <div class="skeleton skeleton-text"></div>
+              <div class="skeleton skeleton-text"></div>
+              <div class="skeleton skeleton-text short"></div>
+          </div>
+      </div>
+  `).join('');
+
   fetch('api/programs')
     .then(res => res.json())
     .then(programs => {
       grid.innerHTML = '';
-      if (empty) empty.style.display = programs.length === 0 ? 'block' : 'none';
+      if (empty) {
+        if (programs.length === 0) empty.classList.add('active');
+        else empty.classList.remove('active');
+      }
 
       programs.forEach((prog, index) => {
         const card = document.createElement('div');

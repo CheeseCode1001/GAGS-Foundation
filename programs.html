@@ -63,8 +63,10 @@
             <div class="programs-grid" id="programs-grid">
                 <!-- Programs loaded from API -->
             </div>
-            <div id="programs-empty" style="text-align:center; padding:60px 20px; display:none;">
-                <p style="color:var(--text-muted); font-size:1.1rem;">No programs available yet. Check back soon!</p>
+            <div id="programs-empty" class="empty-state">
+                <i data-lucide="folder-open" class="empty-state-icon"></i>
+                <h3 class="empty-state-title">No Programs Found</h3>
+                <p class="empty-state-desc">We haven't added any programs yet. Please check back later to see our upcoming initiatives.</p>
             </div>
         </div>
     </section>

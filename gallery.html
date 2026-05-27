@@ -64,8 +64,10 @@
             <div class="gallery-grid" id="gallery-grid">
                 <!-- Gallery loaded from API -->
             </div>
-            <div id="gallery-empty" style="text-align:center; padding:60px 20px; display:none;">
-                <p style="color:var(--text-muted); font-size:1.1rem;">No gallery items available yet. Check back soon!</p>
+            <div id="gallery-empty" class="empty-state">
+                <i data-lucide="image" class="empty-state-icon"></i>
+                <h3 class="empty-state-title">Gallery is Empty</h3>
+                <p class="empty-state-desc">We haven't uploaded any photos yet. Check back soon for moments of impact.</p>
             </div>
         </div>
     </section>

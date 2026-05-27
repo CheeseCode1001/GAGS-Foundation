@@ -50,21 +50,21 @@
                 hope to widows and their families.</p>
         </div>
     </section>
-
     <!-- PROJECTS GRID -->
     <section class="section">
         <div class="container">
             <div class="section-header text-center mx-auto" style="max-width:640px;">
                 <span class="section-label">Where Your Impact Goes</span>
                 <h2 class="stagger-text">Projects Making a Difference</h2>
-                <p>View our current projects and see how your donations directly support widows in need. Every project
-                    is carefully planned and monitored to ensure maximum impact.</p>
+                <p>View our current projects and see how your donations directly support widows in need. Every project is carefully planned and monitored to ensure maximum impact.</p>
             </div>
             <div class="projects-grid" id="projects-grid">
                 <!-- Projects loaded from API -->
             </div>
-            <div id="projects-empty" style="text-align:center; padding:60px 20px;">
-                <p style="color:var(--text-muted); font-size:1.1rem;">No projects available yet. Check back soon!</p>
+            <div id="projects-empty" class="empty-state">
+                <i data-lucide="clipboard-list" class="empty-state-icon"></i>
+                <h3 class="empty-state-title">No Active Projects</h3>
+                <p class="empty-state-desc">There are no active projects at the moment. Your donations help us start new ones.</p>
             </div>
         </div>
     </section>
@@ -73,8 +73,7 @@
     <section class="section" style="background:var(--primary); color:var(--white); text-align:center;">
         <div class="container">
             <h2 style="color:var(--white); margin-bottom:16px;">Ready to Make a Difference?</h2>
-            <p style="color:rgba(255,255,255,0.9); margin-bottom:24px; font-size:1.1rem;">Your donation directly
-                supports these projects and helps transform lives. Every contribution counts.</p>
+            <p style="color:rgba(255,255,255,0.9); margin-bottom:24px; font-size:1.1rem;">Your donation directly supports these projects and helps transform lives. Every contribution counts.</p>
             <a href="donations.html" class="btn btn-primary" style="background:var(--cta); color:var(--white);">
                 Donate Now <span class="btn-arrow">→</span>
             </a>
