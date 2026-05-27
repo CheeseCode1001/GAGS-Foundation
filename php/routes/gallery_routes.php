@@ -42,33 +42,15 @@ function getGallery() {
 // ============ POST /api/gallery ============
 function createGalleryItem() {
     try {
-        // Check for uploaded file
-        if (empty($_FILES['image']) || $_FILES['image']['error'] !== UPLOAD_ERR_OK) {
-            jsonError('No image uploaded', 400);
+        $input = json_decode(file_get_contents('php://input'), true);
+        
+        if (empty($input['image'])) {
+            jsonError('No image URL provided', 400);
         }
         
-        $file = $_FILES['image'];
-        $caption = $_POST['caption'] ?? '';
-        $category = $_POST['category'] ?? 'general';
-        
-        // Create uploads directory if it doesn't exist
-        $uploadsDir = dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'uploads';
-        if (!is_dir($uploadsDir)) {
-            mkdir($uploadsDir, 0755, true);
-        }
-        
-        // Generate unique filename (matches Node.js multer naming)
-        $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
-        $uniqueName = time() . '-' . mt_rand(100000000, 999999999) . '.' . $ext;
-        $destPath = $uploadsDir . DIRECTORY_SEPARATOR . $uniqueName;
-        
-        // Move uploaded file
-        if (!move_uploaded_file($file['tmp_name'], $destPath)) {
-            jsonError('Failed to save uploaded file', 500);
-        }
-        
-        // Store relative path (matches Node.js format)
-        $imagePath = '/assets/images/uploads/' . $uniqueName;
+        $imagePath = $input['image'];
+        $caption = $input['caption'] ?? '';
+        $category = $input['category'] ?? 'general';
         
         $pdo = getDB();
         $stmt = $pdo->prepare(

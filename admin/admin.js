@@ -129,7 +129,7 @@ async function loadPrograms() {
         programs.forEach(program => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
-        <td>${program.title}</td>
+        <td><img src="${program.image || '../assets/images/programs-skills.png'}" width="32" height="32" style="object-fit:cover; border-radius:4px; vertical-align:middle; margin-right:8px; display:inline-block;">${program.title}</td>
         <td><span class="badge">${program.tag || '-'}</span></td>
         <td>${(program.description || '').substring(0, 50)}...</td>
         <td>
@@ -180,7 +180,7 @@ async function loadProjects() {
             const progress = project.goal_amount > 0 ? Math.round((project.raised_amount / project.goal_amount) * 100) : 0;
             const tr = document.createElement('tr');
             tr.innerHTML = `
-        <td>${project.title}</td>
+        <td><img src="${project.image || '../assets/images/hero-banner.png'}" width="32" height="32" style="object-fit:cover; border-radius:4px; vertical-align:middle; margin-right:8px; display:inline-block;">${project.title}</td>
         <td>₦${parseFloat(project.goal_amount).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
         <td>₦${parseFloat(project.raised_amount).toLocaleString('en-US', { minimumFractionDigits: 2 })} (${progress}%)</td>
         <td><span class="badge" style="background:${project.status === 'active' ? 'var(--green-pale)' : project.status === 'completed' ? 'var(--bg-alt)' : 'var(--bg-alt)'}; color:var(--text-dark);">${project.status}</span></td>
@@ -504,15 +504,17 @@ function initForms() {
     document.getElementById('gallery-form').addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const formData = new FormData();
-        formData.append('image', document.getElementById('gallery-image').files[0]);
-        formData.append('caption', document.getElementById('gallery-caption').value);
-        formData.append('category', document.getElementById('gallery-category').value);
+        const formData = {
+            image: document.getElementById('gallery-image').value,
+            caption: document.getElementById('gallery-caption').value,
+            category: document.getElementById('gallery-category').value
+        };
 
         try {
             const response = await fetch('../api/gallery', {
                 method: 'POST',
-                body: formData
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
             });
 
             if (response.ok) {
