@@ -112,7 +112,7 @@ body {
     }
 }
 
-.section-header {
+.section-header-admin {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -120,13 +120,13 @@ body {
     margin-bottom: 32px;
 }
 
-.section-header h2 {
+.section-header-admin h2 {
     font-size: 1.75rem;
     color: var(--primary);
     margin: 0 0 4px;
 }
 
-.section-header p {
+.section-header-admin p {
     margin: 0;
 }
 
@@ -318,17 +318,17 @@ tr:hover {
         padding: 16px;
     }
 
-    .section-header {
+    .section-header-admin {
         flex-direction: column;
         align-items: flex-start;
         gap: 12px;
     }
 
-    .section-header h2 {
+    .section-header-admin h2 {
         font-size: 1.5rem;
     }
 
-    .section-header .btn {
+    .section-header-admin .btn {
         width: 100%;
     }
 
