@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GAGS Foundation Admin Dashboard Login">
+    <title>Admin Login — GAGS Foundation</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body style="background:var(--bg); display:flex; align-items:center; justify-content:center; min-height:100vh;">
+
+    <div style="width:100%; max-width:420px; padding:24px;">
+        <!-- LOGO -->
+        <div style="text-align:center; margin-bottom:40px;">
+            <div class="logo" style="display:inline-flex; align-items:center; gap:8px; margin-bottom:24px;">
+                <div class="logo-icon" style="font-size:1.5rem; background:var(--primary); color:var(--white);">G</div>
+                <span class="logo-text" style="color:var(--primary);">GAGS Foundation</span>
+            </div>
+            <h1 style="color:var(--primary); font-size:1.75rem; margin-bottom:8px;">Admin Dashboard</h1>
+            <p style="color:var(--text-muted);">Sign in to manage the foundation</p>
+        </div>
+
+        <!-- LOGIN FORM -->
+        <form class="w-full flex flex-col" id="login-form"
+            style="background:var(--white); padding:32px; box-shadow:var(--shadow);">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="Enter your username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="btn btn-primary"
+                style="width:100%; justify-content:center; padding:16px; margin-top:8px;">
+                Sign In <span class="btn-arrow">→</span>
+            </button>
+            <div id="error-message"
+                style="color:var(--cta); margin-top:16px; text-align:center; font-size:0.9rem; display:none;"></div>
+        </form>
+
+        <!-- FOOTER -->
+        <p style="text-align:center; color:var(--text-muted); margin-top:32px; font-size:0.9rem;">
+            © 2025 GAGS Foundation. All rights reserved.
+        </p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest"></script>
+    <script src="admin.js"></script>
+</body>
+
+</html>

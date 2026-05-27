@@ -14,6 +14,15 @@ document.addEventListener('DOMContentLoaded', () => {
   initFAQ();
   initDonationAmounts();
   initSmoothScroll();
+  initProjects();
+  initPartnerForm();
+});
+
+// Re-initialize lucide icons after page fully loads (backup)
+window.addEventListener('load', () => {
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
 });
 
 // ============ MOBILE MENU ============
@@ -253,7 +262,9 @@ function initGallery() {
         const category = item.getAttribute('data-category');
         if (filter === 'all' || category === filter) {
           item.style.display = 'block';
-          gsap.fromTo(item, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.4 });
+          if (typeof gsap !== 'undefined') {
+            gsap.fromTo(item, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.4 });
+          }
         } else {
           item.style.display = 'none';
         }
@@ -307,3 +318,118 @@ function initSmoothScroll() {
     });
   });
 }
+
+// ============ PROJECTS PAGE ============
+function initProjects() {
+  const grid = document.getElementById('projects-grid');
+  const empty = document.getElementById('projects-empty');
+
+  if (!grid) return;
+
+  fetch('/api/projects')
+    .then(res => res.json())
+    .then(projects => {
+      grid.innerHTML = '';
+      empty.style.display = projects.length === 0 ? 'block' : 'none';
+
+      projects.forEach((project, index) => {
+        const progress = project.goal_amount > 0 ? Math.round((project.raised_amount / project.goal_amount) * 100) : 0;
+        const card = document.createElement('div');
+        card.className = 'card reveal';
+        card.style.animationDelay = (index * 0.1) + 's';
+
+        const statusColor = project.status === 'active' ? 'var(--primary)' :
+          project.status === 'completed' ? 'var(--cta)' : 'var(--accent)';
+
+        card.innerHTML = `
+          <div class="card-image">
+            <img src="${project.image || 'assets/images/programs-skills.png'}" alt="${project.title}">
+          </div>
+          <div class="card-body">
+            <span class="card-tag" style="background:${statusColor}; color:var(--white);">${project.status.toUpperCase()}</span>
+            <h3>${project.title}</h3>
+            <p>${project.description || 'Help us make a difference'}</p>
+            <div style="margin-top:16px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; font-size:0.9rem;">
+                <span>Goal: ₦${parseFloat(project.goal_amount).toLocaleString('en-US', { minimumFractionDigits: 2 })}</span>
+                <span style="font-weight:700; color:var(--cta);">${progress}%</span>
+              </div>
+              <div style="height:8px; background:var(--bg-alt);">
+                <div style="width:${progress}%; height:100%; background:var(--primary); transition:width 0.3s ease;"></div>
+              </div>
+              <div style="margin-top:12px; font-size:0.85rem; color:var(--text-muted);">
+                Raised: ₦${parseFloat(project.raised_amount).toLocaleString('en-US', { minimumFractionDigits: 2 })}
+              </div>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      // Trigger animations
+      if (typeof gsap !== 'undefined') {
+        const cards = document.querySelectorAll('.card.reveal');
+        cards.forEach((card, index) => {
+          gsap.fromTo(card,
+            { y: 40, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.6,
+              delay: index * 0.05,
+              ease: 'power2.out'
+            }
+          );
+        });
+      }
+    })
+    .catch(error => console.error('Error loading projects:', error));
+}
+
+// ============ PARTNER FORM ============
+function initPartnerForm() {
+  const form = document.getElementById('partner-form');
+  const successDiv = document.getElementById('partner-success');
+
+  if (!form) return;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = {
+      org_name: document.getElementById('partner-org-name').value,
+      contact_name: document.getElementById('partner-contact-name').value,
+      email: document.getElementById('partner-email').value,
+      phone: document.getElementById('partner-phone').value,
+      partnership_type: document.getElementById('partner-type').value,
+      message: document.getElementById('partner-message').value
+    };
+
+    try {
+      const response = await fetch('/api/partners', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      if (response.ok) {
+        form.reset();
+        successDiv.style.display = 'block';
+
+        // Re-initialize lucide icons for the success message
+        if (typeof lucide !== 'undefined') {
+          lucide.createIcons();
+        }
+
+        // Hide success message after 5 seconds
+        setTimeout(() => {
+          successDiv.style.display = 'none';
+        }, 5000);
+      }
+    } catch (error) {
+      console.error('Partner form error:', error);
+      alert('An error occurred. Please try again.');
+    }
+  });
+}
+

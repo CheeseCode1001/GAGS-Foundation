@@ -81,7 +81,7 @@ ul {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1320px;
   margin: 0 auto;
   padding: 0 24px;
 }
@@ -104,7 +104,7 @@ ul {
 }
 
 .header-inner {
-  max-width: 1200px;
+  /* max-width: 1400px; */
   margin: 0 auto;
   padding: 0 24px;
   display: flex;
@@ -241,6 +241,7 @@ ul {
   background: var(--bg);
   flex-direction: column;
   padding: 32px 24px;
+  padding-top: 10px;
   transform: translateX(100%);
   transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
   z-index: 999;
@@ -305,7 +306,7 @@ ul {
   display: grid;
   grid-template-columns: 1.5fr 1fr 1fr 1fr;
   gap: 40px;
-  max-width: 1200px;
+  max-width: 1300px;
   margin: 0 auto;
   padding: 0 24px 60px;
 }
@@ -362,7 +363,7 @@ ul {
   padding: 24px;
   text-align: center;
   font-size: 0.85rem;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -606,15 +607,17 @@ ul {
   margin-bottom: 12px;
 }
 
-/* ============ PROGRAMS GRID ============ */
-.programs-grid {
+/* ============ PROGRAMS & PROJECTS GRID ============ */
+.programs-grid,
+.projects-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 32px;
 }
 
 @media(max-width:768px) {
-  .programs-grid {
+  .programs-grid,
+  .projects-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -1041,6 +1044,17 @@ ul {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
   gap: 48px;
+  align-items: stretch;
+}
+
+.donation-grid>div:last-child {
+  display: flex;
+  align-items: stretch;
+}
+
+.donation-grid img {
+  height: 100%;
+  object-fit: cover;
 }
 
 @media(max-width:768px) {
@@ -1062,8 +1076,29 @@ ul {
   }
 }
 
+.contact-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
 .contact-form .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 0;
+  width: 100%;
+}
+
+.contact-form button {
+  grid-column: 1 / -1;
+}
+
+@media(max-width:768px) {
+  .contact-form {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-form button {
+    grid-column: 1;
+  }
 }
 
 .contact-form label {
@@ -1085,6 +1120,12 @@ ul {
   font-size: 0.95rem;
   transition: border-color 0.3s;
   outline: none;
+  color: var(--text-body);
+}
+
+.contact-form select option {
+  color: var(--text-body);
+  background: var(--white);
 }
 
 .contact-form input:focus,

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Become a partner with GAGS Foundation. Apply for partnership opportunities and help us expand our impact in supporting widows.">
+    <title>Partners — GAGS Foundation</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="site-header" id="site-header">
+        <div class="header-inner">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">G</div><span class="logo-text">GAGS Foundation</span>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Home</a><a href="about.html">About Us</a><a href="programs.html">Programs</a>
+                <a href="projects.html">Projects</a><a href="gallery.html">Gallery</a><a href="partners.html"
+                    class="active">Partners</a><a href="contact.html">Contact</a>
+            </nav>
+            <a href="donations.html" class="header-cta">Donate Now <svg viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" width="16" height="16">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg></a>
+            <button class="hamburger" id="hamburger"
+                aria-label="Toggle Menu"><span></span><span></span><span></span></button>
+        </div>
+        <nav class="mobile-menu" id="mobile-menu">
+            <a href="index.html">Home</a><a href="about.html">About Us</a><a href="programs.html">Programs</a>
+            <a href="projects.html">Projects</a><a href="gallery.html">Gallery</a><a href="partners.html">Partners</a><a
+                href="donations.html">Donate</a><a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <div class="page-hero-bg" style="background-image:url('assets/images/community-outreach.png');"></div>
+        <div class="container">
+            <div class="breadcrumb"><a href="index.html">Home</a> <span>/</span> <span>Partners</span></div>
+            <h1 class="stagger-text">Partner With Us</h1>
+            <p>Join forces with GAGS Foundation to create lasting impact in the lives of widows. Together, we can
+                accomplish more.</p>
+        </div>
+    </section>
+
+    <!-- PARTNER APPLICATION SECTION -->
+    <section class="section">
+        <div class="container">
+            <div class="donation-grid">
+                <div>
+                    <span class="section-label">Ready to Partner?</span>
+                    <h2 class="stagger-text">Partnership Application</h2>
+                    <p style="margin:16px 0 32px; line-height:1.8;">Tell us about your organization and how we can work
+                        together to support widows. We review all applications and will get back to you within 7
+                        business days.</p>
+
+                    <form class="contact-form" id="partner-form">
+                        <div class="flex flex-col md:flex-row w-full gap-4">
+                        <div class="form-group">
+                            <label for="partner-org-name">Organization Name <span
+                                    style="color:var(--cta);">*</span></label>
+                            <input type="text" id="partner-org-name" placeholder="Your organization name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="partner-contact-name">Contact Person</label>
+                            <input type="text" id="partner-contact-name" placeholder="Full name of contact person">
+                        </div>
+                    </div>
+                     <div class="flex flex-col md:flex-row w-full gap-4">
+                        <div class="form-group">
+                            <label for="partner-email">Email Address <span style="color:var(--cta);">*</span></label>
+                            <input type="email" id="partner-email" placeholder="your@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="partner-phone">Phone Number</label>
+                            <input type="tel" id="partner-phone" placeholder="+234 123 456 7890">
+                        </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="partner-type">Partnership Type <span style="color:var(--cta);">*</span></label>
+                            <select id="partner-type" required>
+                                <option value="">Select partnership type...</option>
+                                <option value="financial">Financial Partner</option>
+                                <option value="skills">Skills & Training Provider</option>
+                                <option value="supply">Supply Partner</option>
+                                <option value="volunteer">Volunteer Organization</option>
+                                <option value="media">Media & Communications</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="partner-message">Tell Us More</label>
+                            <textarea id="partner-message"
+                                placeholder="Describe your organization and partnership interests..."
+                                rows="5"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary"
+                            style="width:100%; justify-content:center; padding:16px;">
+                            Submit Application <span class="btn-arrow">→</span>
+                        </button>
+                    </form>
+
+                    <!-- SUCCESS MESSAGE -->
+                    <div id="partner-success"
+                        style="background:var(--green-pale); border-left:4px solid var(--primary); padding:20px; margin-top:20px; display:none;">
+                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+                            <i data-lucide="check-circle" style="width:20px; height:20px; color:var(--primary);"></i>
+                            <h4 style="color:var(--primary); margin:0;">Application Submitted!</h4>
+                        </div>
+                        <p style="color:var(--primary); margin-top:8px; font-size:0.9rem;">Thank you for your interest.
+                            We'll review your application and contact you within 7 business days.</p>
+                    </div>
+                </div>
+
+                <div class="reveal">
+                    <img src="assets/images/community-outreach.png" alt="Partnership collaboration"
+                        style="width:100%; display:block;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PARTNERSHIP BENEFITS SECTION -->
+    <section class="section" style="background:var(--bg-alt);">
+        <div class="container">
+            <div class="section-header text-center mx-auto" style="max-width:640px; margin-bottom:40px;">
+                <span class="section-label">Why Partner With Us?</span>
+                <h2 class="stagger-text">Partnership Benefits</h2>
+                <p>When you partner with GAGS Foundation, you're investing in real change. Enjoy these exclusive
+                    benefits while making a meaningful impact.</p>
+            </div>
+            <div class="help-grid">
+                <div class="help-card reveal">
+                    <div class="help-icon"><i data-lucide="eye"
+                            style="width:28px; height:28px; color:var(--primary);"></i></div>
+                    <h4 style="font-size:1rem; margin-top:12px;">Brand Visibility</h4>
+                    <p style="margin-top:8px; font-size:0.9rem; color:var(--text-muted);">Feature your organization on
+                        our website, newsletters, and social media to reach thousands of impact-minded supporters.</p>
+                </div>
+                <div class="help-card reveal">
+                    <div class="help-icon"><i data-lucide="receipt"
+                            style="width:28px; height:28px; color:var(--primary);"></i></div>
+                    <h4 style="font-size:1rem; margin-top:12px;">Tax Benefits</h4>
+                    <p style="margin-top:8px; font-size:0.9rem; color:var(--text-muted);">Receive tax deduction
+                        certificates for financial contributions to support your corporate social responsibility goals.
+                    </p>
+                </div>
+                <div class="help-card reveal">
+                    <div class="help-icon"><i data-lucide="heart"
+                            style="width:28px; height:28px; color:var(--cta);"></i></div>
+                    <h4 style="font-size:1rem; margin-top:12px;">Community Impact</h4>
+                    <p style="margin-top:8px; font-size:0.9rem; color:var(--text-muted);">Make direct, measurable
+                        difference in the lives of widows and their families across Nigeria.</p>
+                </div>
+                <div class="help-card reveal">
+                    <div class="help-icon"><i data-lucide="users"
+                            style="width:28px; height:28px; color:var(--primary);"></i></div>
+                    <h4 style="font-size:1rem; margin-top:12px;">Networking</h4>
+                    <p style="margin-top:8px; font-size:0.9rem; color:var(--text-muted);">Connect with other
+                        mission-driven organizations and expand your professional network.</p>
+                </div>
+                <div class="help-card reveal">
+                    <div class="help-icon"><i data-lucide="bar-chart-2"
+                            style="width:28px; height:28px; color:var(--primary);"></i></div>
+                    <h4 style="font-size:1rem; margin-top:12px;">Regular Reports</h4>
+                    <p style="margin-top:8px; font-size:0.9rem; color:var(--text-muted);">Receive detailed impact
+                        reports and quarterly updates showing exactly how your partnership is making a difference.</p>
+                </div>
+                <div class="help-card reveal">
+                    <div class="help-icon"><i data-lucide="shield-check"
+                            style="width:28px; height:28px; color:var(--cta);"></i></div>
+                    <h4 style="font-size:1rem; margin-top:12px;">Co-branded Events</h4>
+                    <p style="margin-top:8px; font-size:0.9rem; color:var(--text-muted);">Host joint events and
+                        fundraising campaigns to maximize impact and visibility for both organizations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PARTNERSHIP FAQ -->
+    <section class="section" style="background:var(--bg);">
+        <div class="container" style="max-width:1200px;">
+            <div class="section-header text-center mx-auto" style="max-width:640px;">
+                <span class="section-label">Questions</span>
+                <h2 class="stagger-text">Partnership FAQs</h2>
+            </div>
+            <div class="faq-item open">
+                <div class="faq-question">What types of partnerships do you offer? <span class="faq-icon">+</span></div>
+                <div class="faq-answer">
+                    <p style="color:var(--text-body); line-height:1.8;">We welcome various partnership models including
+                        financial partnerships, skills training providers, supply partnerships, volunteer organizations,
+                        and media partnerships. Each partnership is tailored to your organization's capabilities and
+                        interests.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">What is the minimum commitment required? <span class="faq-icon">+</span></div>
+                <div class="faq-answer">
+                    <p style="color:var(--text-body); line-height:1.8;">There is no fixed minimum commitment.
+                        Partnership terms are flexible and customized based on your organization's capacity. We work
+                        with startups to large corporations, tailoring each partnership accordingly.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">How long does the application process take? <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p style="color:var(--text-body); line-height:1.8;">We review all applications within 7 business
+                        days. After review, we'll contact you to discuss partnership opportunities and next steps.
+                        Complex partnerships may take longer to finalize.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Can we track the impact of our partnership? <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p style="color:var(--text-body); line-height:1.8;">Yes! We provide detailed impact reports and
+                        quarterly updates showing exactly how your contribution is making a difference. You'll see the
+                        real outcomes of your partnership.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Do partnerships come with marketing opportunities? <span
+                        class="faq-icon">+</span></div>
+                <div class="faq-answer">
+                    <p style="color:var(--text-body); line-height:1.8;">Absolutely. We feature our partners on our
+                        website, in newsletters, social media, and annual reports. We also co-host events and joint
+                        campaigns to maximize visibility for both organizations.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">How can we expand our partnership over time? <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p style="color:var(--text-body); line-height:1.8;">Partnerships are flexible and can grow with your
+                        organization. We have quarterly reviews to assess impact and explore new opportunities. Many of
+                        our partners have evolved their involvement over time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-col footer-about">
+                <div class="logo" style="margin-bottom:16px;">
+                    <div class="logo-icon" style="background:var(--cta);">G</div><span class="logo-text"
+                        style="color:var(--white);">GAGS Foundation</span>
+                </div>
+                <p>We are committed to supporting widows through empowerment, counseling, education, and community care.
+                </p>
+                <div class="footer-social"><a href="#" aria-label="Facebook"><i data-lucide="facebook"></i></a><a
+                        href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a><a href="#"
+                        aria-label="Twitter"><i data-lucide="twitter"></i></a></div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="programs.html">Programs</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Support Us</h4>
+                <ul>
+                    <li><a href="donations.html">Donate</a></li>
+                    <li><a href="projects.html">View Projects</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <p>Email: <a href="mailto:info@gagsfoundation.org">info@gagsfoundation.org</a></p>
+                <p>Phone: <a href="tel:+2341234567890">+234 123 456 7890</a></p>
+                <p style="font-size:0.9rem; color:rgba(255,255,255,0.7); margin-top:8px;">Lagos, Nigeria</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 GAGS Foundation. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of
+                    Service</a></p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

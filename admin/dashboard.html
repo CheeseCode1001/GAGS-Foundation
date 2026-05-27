@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GAGS Foundation Admin Dashboard">
+    <title>Dashboard — GAGS Foundation</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar" id="admin-sidebar">
+        <div class="sidebar-header">
+            <div class="logo" style="margin:0; display:flex; align-items:center; gap:8px; color:var(--white);">
+                <div
+                    style="width:32px; height:32px; background:var(--cta); display:flex; align-items:center; justify-content:center; font-weight:700;">
+                    G</div>
+                <span style="font-weight:700; font-size:1rem;">GAGS</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="#" data-section="programs" class="sidebar-link active">
+                <i data-lucide="book-open" style="width:18px; height:18px;"></i>
+                <span>Programs</span>
+            </a>
+            <a href="#" data-section="projects" class="sidebar-link">
+                <i data-lucide="briefcase" style="width:18px; height:18px;"></i>
+                <span>Projects</span>
+            </a>
+            <a href="#" data-section="donations" class="sidebar-link">
+                <i data-lucide="heart" style="width:18px; height:18px;"></i>
+                <span>Donations</span>
+            </a>
+            <a href="#" data-section="gallery" class="sidebar-link">
+                <i data-lucide="image" style="width:18px; height:18px;"></i>
+                <span>Gallery</span>
+            </a>
+            <a href="#" data-section="partners" class="sidebar-link">
+                <i data-lucide="users" style="width:18px; height:18px;"></i>
+                <span>Partners</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button id="logout-btn" class="btn btn-outline" style="width:100%;">Logout</button>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="admin-main">
+        <!-- HEADER -->
+        <header class="admin-header">
+            <div style="display:flex; align-items:center; gap:16px;">
+                <h1 style="font-size:1.5rem; color:var(--text-dark); margin:0;">Dashboard</h1>
+            </div>
+            <div id="admin-user" style="display:flex; align-items:center; gap:8px; color:var(--text-muted);">
+                <i data-lucide="user" style="width:18px; height:18px;"></i>
+                <span id="admin-username"></span>
+            </div>
+        </header>
+
+        <!-- CONTENT AREA -->
+        <div class="admin-content">
+
+            <!-- ============ PROGRAMS SECTION ============ -->
+            <section id="programs-section" class="admin-section active">
+                <div class="section-header">
+                    <div>
+                        <h2>Programs Management</h2>
+                        <p style="color:var(--text-muted); margin:0;">Manage foundation programs and services</p>
+                    </div>
+                    <button class="btn btn-primary" id="add-program-btn">
+                        <i data-lucide="plus" style="width:16px; height:16px; margin-right:8px;"></i>
+                        Add Program
+                    </button>
+                </div>
+
+                <div class="table-container">
+                    <table id="programs-table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Tag</th>
+                                <th>Description</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="programs-tbody">
+                            <!-- Programs loaded from API -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ============ PROJECTS SECTION ============ -->
+            <section id="projects-section" class="admin-section">
+                <div class="section-header">
+                    <div>
+                        <h2>Projects Management</h2>
+                        <p style="color:var(--text-muted); margin:0;">Manage donation projects</p>
+                    </div>
+                    <button class="btn btn-primary" id="add-project-btn">
+                        <i data-lucide="plus" style="width:16px; height:16px; margin-right:8px;"></i>
+                        Add Project
+                    </button>
+                </div>
+
+                <div class="table-container">
+                    <table id="projects-table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Goal Amount</th>
+                                <th>Raised Amount</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="projects-tbody">
+                            <!-- Projects loaded from API -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ============ DONATIONS SECTION ============ -->
+            <section id="donations-section" class="admin-section">
+                <div class="section-header">
+                    <div>
+                        <h2>Donations</h2>
+                        <p style="color:var(--text-muted); margin:0;">View all donations</p>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table id="donations-table">
+                        <thead>
+                            <tr>
+                                <th>Donor Name</th>
+                                <th>Email</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="donations-tbody">
+                            <!-- Donations loaded from API -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ============ GALLERY SECTION ============ -->
+            <section id="gallery-section" class="admin-section">
+                <div class="section-header">
+                    <div>
+                        <h2>Gallery Management</h2>
+                        <p style="color:var(--text-muted); margin:0;">Manage gallery images</p>
+                    </div>
+                    <button class="btn btn-primary" id="add-gallery-btn">
+                        <i data-lucide="plus" style="width:16px; height:16px; margin-right:8px;"></i>
+                        Upload Image
+                    </button>
+                </div>
+
+                <div id="gallery-grid"
+                    style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:20px;">
+                    <!-- Gallery items loaded from API -->
+                </div>
+            </section>
+
+            <!-- ============ PARTNERS SECTION ============ -->
+            <section id="partners-section" class="admin-section">
+                <div class="section-header">
+                    <div>
+                        <h2>Partnership Applications</h2>
+                        <p style="color:var(--text-muted); margin:0;">Review partnership applications</p>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table id="partners-table">
+                        <thead>
+                            <tr>
+                                <th>Organization</th>
+                                <th>Contact</th>
+                                <th>Email</th>
+                                <th>Type</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="partners-tbody">
+                            <!-- Partners loaded from API -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- ============ MODALS ============ -->
+
+    <!-- PROGRAM/PROJECT FORM MODAL -->
+    <div id="form-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="form-modal-title">Add Item</h3>
+                <button class="modal-close" id="close-form-modal">×</button>
+            </div>
+            <form id="item-form" class="contact-form">
+                <div id="form-fields"></div>
+                <div style="display:flex; gap:12px; margin-top:20px;">
+                    <button type="submit" class="btn btn-primary" style="flex:1;">Save</button>
+                    <button type="button" class="btn btn-outline" style="flex:1;" id="cancel-form">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- GALLERY UPLOAD MODAL -->
+    <div id="gallery-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Upload Image</h3>
+                <button class="modal-close" id="close-gallery-modal">×</button>
+            </div>
+            <form id="gallery-form" class="contact-form" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="gallery-image">Image File</label>
+                    <input type="file" id="gallery-image" accept="image/*" required>
+                </div>
+                <div class="form-group">
+                    <label for="gallery-caption">Caption</label>
+                    <input type="text" id="gallery-caption" placeholder="Image caption">
+                </div>
+                <div class="form-group">
+                    <label for="gallery-category">Category</label>
+                    <input type="text" id="gallery-category" placeholder="general">
+                </div>
+                <div style="display:flex; gap:12px; margin-top:20px;">
+                    <button type="submit" class="btn btn-primary" style="flex:1;">Upload</button>
+                    <button type="button" class="btn btn-outline" style="flex:1;" id="cancel-gallery">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- CONFIRMATION MODAL -->
+    <div id="confirm-modal" class="modal">
+        <div class="modal-content" style="max-width:400px;">
+            <div class="modal-header">
+                <h3>Confirm Delete</h3>
+                <button class="modal-close" id="close-confirm-modal">×</button>
+            </div>
+            <p id="confirm-message" style="margin:20px 0; color:var(--text-body);">Are you sure you want to delete this
+                item?</p>
+            <div style="display:flex; gap:12px;">
+                <button id="confirm-delete" class="btn"
+                    style="flex:1; background:var(--cta); color:var(--white);">Delete</button>
+                <button type="button" class="btn btn-outline" style="flex:1;" id="cancel-confirm">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest"></script>
+    <script src="admin.js"></script>
+</body>
+
+</html>
