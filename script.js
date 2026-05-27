@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initDonationAmounts();
   initSmoothScroll();
   initProjects();
+  initPrograms();
   initPartnerForm();
 });
 
@@ -212,8 +213,48 @@ function initCounters() {
   counters.forEach(counter => observer.observe(counter));
 }
 
-// ============ GALLERY LIGHTBOX ============
+// ============ GALLERY LIGHTBOX & FETCH ============
 function initGallery() {
+  const grid = document.getElementById('gallery-grid');
+  const empty = document.getElementById('gallery-empty');
+
+  if (!grid) {
+    setupGalleryLightboxAndFilters();
+    return;
+  }
+
+  fetch('api/gallery')
+    .then(res => res.json())
+    .then(items => {
+      grid.innerHTML = '';
+      if (empty) empty.style.display = items.length === 0 ? 'block' : 'none';
+
+      items.forEach((item, index) => {
+        const div = document.createElement('div');
+        div.className = 'gallery-item reveal';
+        div.setAttribute('data-category', (item.category || 'other').toLowerCase());
+        
+        div.innerHTML = `
+            <img src="${item.image_url}" alt="${item.title || 'Gallery image'}">
+            <div class="gallery-item-overlay"><i data-lucide="zoom-in" style="width:32px; height:32px;"></i></div>
+        `;
+        grid.appendChild(div);
+      });
+
+      if (typeof gsap !== 'undefined') {
+        const cards = document.querySelectorAll('.gallery-item.reveal');
+        cards.forEach((card, index) => {
+          gsap.fromTo(card, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, delay: index * 0.05, ease: 'power2.out' });
+        });
+      }
+
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+      setupGalleryLightboxAndFilters();
+    })
+    .catch(error => console.error('Error loading gallery:', error));
+}
+
+function setupGalleryLightboxAndFilters() {
   const galleryItems = document.querySelectorAll('.gallery-item');
   const lightbox = document.querySelector('.lightbox');
   const lightboxImg = document.querySelector('.lightbox img');
@@ -384,6 +425,45 @@ function initProjects() {
       }
     })
     .catch(error => console.error('Error loading projects:', error));
+}
+
+// ============ PROGRAMS PAGE ============
+function initPrograms() {
+  const grid = document.getElementById('programs-grid');
+  const empty = document.getElementById('programs-empty');
+
+  if (!grid) return;
+
+  fetch('api/programs')
+    .then(res => res.json())
+    .then(programs => {
+      grid.innerHTML = '';
+      if (empty) empty.style.display = programs.length === 0 ? 'block' : 'none';
+
+      programs.forEach((prog, index) => {
+        const card = document.createElement('div');
+        card.className = 'card reveal';
+        card.style.animationDelay = (index * 0.1) + 's';
+
+        card.innerHTML = `
+          <div class="card-image"><img src="${prog.image || 'assets/images/programs-skills.png'}" alt="${prog.title}"></div>
+          <div class="card-body">
+              <span class="card-tag">${prog.category || 'Program'}</span>
+              <h3>${prog.title}</h3>
+              <p>${prog.description || ''}</p>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      if (typeof gsap !== 'undefined') {
+        const cards = document.querySelectorAll('#programs-grid .card.reveal');
+        cards.forEach((card, index) => {
+          gsap.fromTo(card, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, delay: index * 0.05, ease: 'power2.out' });
+        });
+      }
+    })
+    .catch(error => console.error('Error loading programs:', error));
 }
 
 // ============ PARTNER FORM ============
