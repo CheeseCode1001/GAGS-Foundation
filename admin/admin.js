@@ -35,7 +35,7 @@ function initLoginForm() {
             const data = await response.json();
 
             if (response.ok) {
-                window.location.href = '/admin/dashboard.html';
+                window.location.href = 'dashboard.html';
             } else {
                 errorDiv.textContent = data.error || 'Login failed. Please try again.';
                 errorDiv.style.display = 'block';
@@ -55,7 +55,7 @@ async function checkAuthAndInit() {
         const data = await response.json();
 
         if (!data.authenticated) {
-            window.location.href = '/admin/login.html';
+            window.location.href = 'login.html';
             return;
         }
 
@@ -63,7 +63,7 @@ async function checkAuthAndInit() {
         initDashboard();
     } catch (error) {
         console.error('Auth check error:', error);
-        window.location.href = '/admin/login.html';
+        window.location.href = 'login.html';
     }
 }
 
@@ -102,7 +102,7 @@ function initLogout() {
     document.getElementById('logout-btn').addEventListener('click', async () => {
         try {
             await fetch('../api/logout', { method: 'POST' });
-            window.location.href = '/admin/login.html';
+            window.location.href = 'login.html';
         } catch (error) {
             console.error('Logout error:', error);
         }

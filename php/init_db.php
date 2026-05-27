@@ -93,10 +93,11 @@ function initializeDatabase() {
         $adminUsername = defined('ADMIN_USERNAME') ? ADMIN_USERNAME : 'admin';
         $adminPassword = defined('ADMIN_PASSWORD') ? ADMIN_PASSWORD : 'admin123';
         
-        $stmt = $pdo->prepare('SELECT id FROM admins WHERE username = ?');
+        $stmt = $pdo->prepare('SELECT COUNT(*) FROM admins WHERE username = ?');
         $stmt->execute([$adminUsername]);
+        $userExists = $stmt->fetchColumn();
         
-        if ($stmt->rowCount() === 0) {
+        if ($userExists == 0) {
             $hashedPassword = password_hash($adminPassword, PASSWORD_BCRYPT, ['cost' => 10]);
             $stmt = $pdo->prepare('INSERT INTO admins (username, password) VALUES (?, ?)');
             $stmt->execute([$adminUsername, $hashedPassword]);
