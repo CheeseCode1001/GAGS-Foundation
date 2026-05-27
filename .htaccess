@@ -1,5 +1,17 @@
 RewriteEngine On
 
+# Protect the php/ directory from direct access
+RewriteRule ^php/ - [F,L]
+
+# Add security headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "DENY"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+
 # ============================================================
 # GAGS Foundation - Apache URL Rewriting
 # Routes /api/* requests to the PHP front-controller

@@ -50,17 +50,27 @@ function createProject() {
     try {
         $data = getJsonBody();
         
+        $title = sanitizeString($data['title'] ?? '', 255);
+        if (empty($title)) {
+            jsonError('Project title is required', 400);
+        }
+        
+        $goal_amount = max(0, (float)($data['goal_amount'] ?? 0));
+        $raised_amount = max(0, (float)($data['raised_amount'] ?? 0));
+        $status = validateStatus($data['status'] ?? 'active');
+        $image = validateUrl($data['image'] ?? '');
+        
         $pdo = getDB();
         $stmt = $pdo->prepare(
             'INSERT INTO projects (title, description, goal_amount, raised_amount, status, image) VALUES (?, ?, ?, ?, ?, ?)'
         );
         $stmt->execute([
-            $data['title'] ?? '',
-            $data['description'] ?? null,
-            $data['goal_amount'] ?? 0,
-            $data['raised_amount'] ?? 0,
-            $data['status'] ?? 'active',
-            $data['image'] ?? null,
+            $title,
+            sanitizeString($data['description'] ?? '', 5000),
+            $goal_amount,
+            $raised_amount,
+            $status,
+            $image,
         ]);
         
         jsonResponse(['success' => true, 'id' => (int)$pdo->lastInsertId()]);
@@ -75,17 +85,27 @@ function updateProject($id) {
     try {
         $data = getJsonBody();
         
+        $title = sanitizeString($data['title'] ?? '', 255);
+        if (empty($title)) {
+            jsonError('Project title is required', 400);
+        }
+        
+        $goal_amount = max(0, (float)($data['goal_amount'] ?? 0));
+        $raised_amount = max(0, (float)($data['raised_amount'] ?? 0));
+        $status = validateStatus($data['status'] ?? 'active');
+        $image = validateUrl($data['image'] ?? '');
+        
         $pdo = getDB();
         $stmt = $pdo->prepare(
             'UPDATE projects SET title = ?, description = ?, goal_amount = ?, raised_amount = ?, status = ?, image = ? WHERE id = ?'
         );
         $stmt->execute([
-            $data['title'] ?? '',
-            $data['description'] ?? null,
-            $data['goal_amount'] ?? 0,
-            $data['raised_amount'] ?? 0,
-            $data['status'] ?? 'active',
-            $data['image'] ?? null,
+            $title,
+            sanitizeString($data['description'] ?? '', 5000),
+            $goal_amount,
+            $raised_amount,
+            $status,
+            $image,
             (int)$id,
         ]);
         

@@ -44,13 +44,13 @@ function createGalleryItem() {
     try {
         $input = json_decode(file_get_contents('php://input'), true);
         
-        if (empty($input['image'])) {
-            jsonError('No image URL provided', 400);
+        $imagePath = validateUrl($input['image'] ?? '');
+        if (empty($imagePath)) {
+            jsonError('Valid image URL provided is required', 400);
         }
         
-        $imagePath = $input['image'];
-        $caption = $input['caption'] ?? '';
-        $category = $input['category'] ?? 'general';
+        $caption = sanitizeString($input['caption'] ?? '', 255);
+        $category = sanitizeString($input['category'] ?? 'general', 100);
         
         $pdo = getDB();
         $stmt = $pdo->prepare(
@@ -79,13 +79,19 @@ function deleteGalleryItem($id) {
         $stmt->execute([(int)$id]);
         $item = $stmt->fetch();
         
-        if ($item) {
-            // Delete the physical file
-            $fullPath = dirname(__DIR__, 2) . $item['image'];
-            // Normalize path separators for Windows
-            $fullPath = str_replace('/', DIRECTORY_SEPARATOR, $fullPath);
+        if ($item && !empty($item['image'])) {
+            // Fix path traversal: make sure it's within the upload directory or at least realpath matches
+            $fullPath = dirname(__DIR__, 2) . '/' . ltrim($item['image'], '/');
+            $fullPath = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $fullPath);
+            
             if (file_exists($fullPath)) {
-                unlink($fullPath);
+                $realPath = realpath($fullPath);
+                $basePath = realpath(dirname(__DIR__, 2));
+                
+                // Only delete if it exists and is inside the project directory
+                if ($realPath && strpos($realPath, $basePath) === 0) {
+                    unlink($realPath);
+                }
             }
         }
         

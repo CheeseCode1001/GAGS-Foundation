@@ -28,6 +28,9 @@ initializeDatabase();
 // ============ CORS & HEADERS ============
 header('Content-Type: application/json; charset=utf-8');
 header('X-Content-Type-Options: nosniff');
+header('X-Frame-Options: DENY');
+header('X-XSS-Protection: 1; mode=block');
+header('Referrer-Policy: strict-origin-when-cross-origin');
 
 
 // ============ PARSE REQUEST ============
@@ -53,6 +56,29 @@ if (preg_match('#/api(?:/index\.php)?(/.*)?$#', $uri, $matches)) {
 $segments = explode('/', trim($path, '/'));
 $resource = $segments[0] ?? '';
 $id = $segments[1] ?? null;
+
+// ============ CSRF PROTECTION ============
+// Generate a CSRF token if one doesn't exist in the session
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
+// Validate CSRF token on state-changing requests (POST/PUT/DELETE)
+// Exempt public endpoints: donations (POST), partners (POST), login (POST)
+if (in_array($method, ['POST', 'PUT', 'DELETE'])) {
+    $csrfExempt = (
+        ($resource === 'donations' && $method === 'POST') ||
+        ($resource === 'partners' && $method === 'POST') ||
+        ($resource === 'login' && $method === 'POST')
+    );
+
+    if (!$csrfExempt) {
+        $token = $_SERVER['HTTP_X_CSRF_TOKEN'] ?? '';
+        if (!hash_equals($_SESSION['csrf_token'], $token)) {
+            jsonError('Invalid or missing CSRF token', 403);
+        }
+    }
+}
 
 // ============ LOAD ROUTE HANDLERS ============
 $routesDir = __DIR__ . '/../php/routes';

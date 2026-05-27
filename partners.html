@@ -18,7 +18,8 @@
     <header class="site-header" id="site-header">
         <div class="header-inner">
             <a href="index.html" class="logo">
-                <img src="assets/images/logo.png" alt="GAGS Foundation Logo" class="site-logo" style="height: 50px; width: auto; border: 1px solid var(--cta);">
+                <img src="assets/images/logo.png" alt="GAGS Foundation Logo" class="site-logo"
+                    style="height: 50px; width: auto; border: 1px solid var(--cta);">
                 <h2 class="logo-text">GAGS Foundation</h2>
             </a>
             <nav class="nav-links">
@@ -64,25 +65,26 @@
 
                     <form class="contact-form" id="partner-form">
                         <div class="flex flex-col md:flex-row w-full gap-4">
-                        <div class="form-group">
-                            <label for="partner-org-name">Organization Name <span
-                                    style="color:var(--cta);">*</span></label>
-                            <input type="text" id="partner-org-name" placeholder="Your organization name" required>
+                            <div class="form-group">
+                                <label for="partner-org-name">Organization Name <span
+                                        style="color:var(--cta);">*</span></label>
+                                <input type="text" id="partner-org-name" placeholder="Your organization name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="partner-contact-name">Contact Person</label>
+                                <input type="text" id="partner-contact-name" placeholder="Full name of contact person">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="partner-contact-name">Contact Person</label>
-                            <input type="text" id="partner-contact-name" placeholder="Full name of contact person">
-                        </div>
-                    </div>
-                     <div class="flex flex-col md:flex-row w-full gap-4">
-                        <div class="form-group">
-                            <label for="partner-email">Email Address <span style="color:var(--cta);">*</span></label>
-                            <input type="email" id="partner-email" placeholder="your@email.com" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="partner-phone">Phone Number</label>
-                            <input type="tel" id="partner-phone" placeholder="+234 123 456 7890">
-                        </div>
+                        <div class="flex flex-col md:flex-row w-full gap-4">
+                            <div class="form-group">
+                                <label for="partner-email">Email Address <span
+                                        style="color:var(--cta);">*</span></label>
+                                <input type="email" id="partner-email" placeholder="your@email.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="partner-phone">Phone Number</label>
+                                <input type="tel" id="partner-phone" placeholder="+234 123 456 7890">
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="partner-type">Partnership Type <span style="color:var(--cta);">*</span></label>
@@ -253,13 +255,17 @@
         <div class="footer-grid">
             <div class="footer-col footer-about">
                 <div class="logo" style="margin-bottom:16px;">
-                    <img src="assets/images/logo.png" alt="GAGS Foundation Logo" class="site-logo" style="height: 50px; width: auto; border: 1px solid var(--cta);">
+                    <img src="assets/images/logo.png" alt="GAGS Foundation Logo" class="site-logo"
+                        style="height: 40px; width: auto;">
+                    <h2 class="logo-text-footer"> GAGS Foundation Ministries</h2>
                 </div>
                 <p>We are committed to supporting widows through empowerment, counseling, education, and community care.
                 </p>
-                <div class="footer-social"><a href="#" aria-label="Facebook"><i data-lucide="facebook"></i></a><a
-                        href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a><a href="#"
-                        aria-label="Twitter"><i data-lucide="twitter"></i></a></div>
+                                <div class="footer-social">
+                    <a href="#" aria-label="Facebook"><ion-icon name="logo-facebook"></ion-icon></a>
+                    <a href="#" aria-label="Instagram"><ion-icon name="logo-instagram"></ion-icon></a>
+                    <a href="#" aria-label="Twitter"><ion-icon name="logo-twitter"></ion-icon></a>
+                </div>
             </div>
             <div class="footer-col">
                 <h4>Quick Links</h4>
@@ -282,7 +288,9 @@
                 <h4>Contact</h4>
                 <p>Email: <a href="mailto:gagsfoundations@gmail.com">gagsfoundations@gmail.com</a></p>
                 <p>Phone: <a href="tel:+2341234567890">+234 123 456 7890</a></p>
-                <p style="font-size:0.9rem; color:rgba(255,255,255,0.7); margin-top:8px;">No. 1 Holy City behind Bingham University Autabalefi, Nigeria | F17 Yusufu Turaki Plaza, Farin Gada, Zaria Road, Jos, Plateau State.</p>
+                <p style="font-size:0.9rem; color:rgba(255,255,255,0.7); margin-top:8px;">No. 1 Holy City behind Bingham
+                    University Autabalefi, Nigeria | F17 Yusufu Turaki Plaza, Farin Gada, Zaria Road, Jos, Plateau
+                    State.</p>
             </div>
         </div>
         <div class="footer-bottom">
@@ -295,6 +303,7 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="script.js"></script>
+<script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
 </body>
 
 </html>

@@ -50,15 +50,22 @@ function createProgram() {
     try {
         $data = getJsonBody();
         
+        $title = sanitizeString($data['title'] ?? '', 255);
+        if (empty($title)) {
+            jsonError('Program title is required', 400);
+        }
+        
+        $image = validateUrl($data['image'] ?? '');
+        
         $pdo = getDB();
         $stmt = $pdo->prepare(
             'INSERT INTO programs (title, tag, description, image) VALUES (?, ?, ?, ?)'
         );
         $stmt->execute([
-            $data['title'] ?? '',
-            $data['tag'] ?? null,
-            $data['description'] ?? null,
-            $data['image'] ?? null,
+            $title,
+            sanitizeString($data['tag'] ?? '', 100),
+            sanitizeString($data['description'] ?? '', 5000),
+            $image,
         ]);
         
         jsonResponse(['success' => true, 'id' => (int)$pdo->lastInsertId()]);
@@ -73,15 +80,22 @@ function updateProgram($id) {
     try {
         $data = getJsonBody();
         
+        $title = sanitizeString($data['title'] ?? '', 255);
+        if (empty($title)) {
+            jsonError('Program title is required', 400);
+        }
+        
+        $image = validateUrl($data['image'] ?? '');
+        
         $pdo = getDB();
         $stmt = $pdo->prepare(
             'UPDATE programs SET title = ?, tag = ?, description = ?, image = ? WHERE id = ?'
         );
         $stmt->execute([
-            $data['title'] ?? '',
-            $data['tag'] ?? null,
-            $data['description'] ?? null,
-            $data['image'] ?? null,
+            $title,
+            sanitizeString($data['tag'] ?? '', 100),
+            sanitizeString($data['description'] ?? '', 5000),
+            $image,
             (int)$id,
         ]);
         

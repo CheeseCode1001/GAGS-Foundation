@@ -44,12 +44,12 @@ function createDonation() {
     try {
         $data = getJsonBody();
         
-        $donorName = trim($data['donor_name'] ?? '');
-        $email = trim($data['email'] ?? '');
-        $amount = $data['amount'] ?? null;
+        $donorName = sanitizeString($data['donor_name'] ?? '', 255);
+        $email = validateEmail($data['email'] ?? '');
+        $amount = (float)($data['amount'] ?? 0);
         
-        if (empty($donorName) || empty($email) || empty($amount)) {
-            jsonError('Missing required fields', 400);
+        if (empty($donorName) || empty($email) || $amount <= 0) {
+            jsonError('Valid name, email, and positive amount are required', 400);
         }
         
         $pdo = getDB();
@@ -59,9 +59,9 @@ function createDonation() {
         $stmt->execute([
             $donorName,
             $email,
-            (float)$amount,
+            $amount,
             !empty($data['project_id']) ? (int)$data['project_id'] : null,
-            $data['message'] ?? null,
+            sanitizeString($data['message'] ?? '', 1000),
         ]);
         
         jsonResponse(['success' => true, 'id' => (int)$pdo->lastInsertId()]);

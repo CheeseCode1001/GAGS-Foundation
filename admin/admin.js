@@ -1,4 +1,19 @@
 // ============ ADMIN INITIALIZATION ============
+window.csrfToken = '';
+
+
+function escapeHTML(str) {
+    if (str === null || str === undefined) return '';
+    return String(str).replace(/[&<>'"]/g, function(match) {
+        return {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            "'": '&#39;',
+            '"': '&quot;'
+        }[match];
+    });
+}
 
 function showTableSkeletons(tbodyId, colCount) {
     const tbody = document.getElementById(tbodyId);
@@ -74,6 +89,7 @@ async function checkAuthAndInit() {
             return;
         }
 
+        window.csrfToken = data.csrf_token || '';
         document.getElementById('admin-username').textContent = data.username;
         initDashboard();
     } catch (error) {
@@ -116,7 +132,10 @@ function initSidebarNavigation() {
 function initLogout() {
     document.getElementById('logout-btn').addEventListener('click', async () => {
         try {
-            await fetch('../api/logout', { method: 'POST' });
+            await fetch('../api/logout', { 
+                method: 'POST',
+                headers: { 'X-CSRF-TOKEN': window.csrfToken }
+            });
             window.location.href = 'login.html';
         } catch (error) {
             console.error('Logout error:', error);
@@ -145,13 +164,13 @@ async function loadPrograms() {
         programs.forEach(program => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
-        <td><img src="${program.image || '../assets/images/programs-skills.png'}" width="32" height="32" style="object-fit:cover; border-radius:4px; vertical-align:middle; margin-right:8px; display:inline-block;">${program.title}</td>
-        <td><span class="badge">${program.tag || '-'}</span></td>
-        <td>${(program.description || '').substring(0, 50)}...</td>
+        <td><img src="${escapeHTML(program.image) || '../assets/images/programs-skills.png'}" width="32" height="32" style="object-fit:cover; border-radius:4px; vertical-align:middle; margin-right:8px; display:inline-block;">${escapeHTML(program.title)}</td>
+        <td><span class="badge">${escapeHTML(program.tag) || '-'}</span></td>
+        <td>${escapeHTML((program.description || '').substring(0, 50))}...</td>
         <td>
           <div style="display:flex; gap:8px;">
-            <button class="btn btn-sm" onclick="editProgram(${program.id})">Edit</button>
-            <button class="btn btn-sm" onclick="deleteProgram(${program.id})" style="color:var(--cta);">Delete</button>
+            <button class="btn btn-sm" onclick="editProgram(${parseInt(program.id, 10)})">Edit</button>
+            <button class="btn btn-sm" onclick="deleteProgram(${parseInt(program.id, 10)})" style="color:var(--cta);">Delete</button>
           </div>
         </td>
       `;
@@ -181,7 +200,10 @@ window.editProgram = function (id) {
 
 window.deleteProgram = function (id) {
     openDeleteConfirm('program', id, () => {
-        fetch(`../api/programs/${id}`, { method: 'DELETE' })
+        fetch(`../api/programs/${id}`, { 
+            method: 'DELETE',
+            headers: { 'X-CSRF-TOKEN': window.csrfToken }
+        })
             .then(() => loadPrograms())
             .catch(error => console.error('Delete error:', error));
     });
@@ -204,14 +226,14 @@ async function loadProjects() {
             const progress = project.goal_amount > 0 ? Math.round((project.raised_amount / project.goal_amount) * 100) : 0;
             const tr = document.createElement('tr');
             tr.innerHTML = `
-        <td><img src="${project.image || '../assets/images/hero-banner.png'}" width="32" height="32" style="object-fit:cover; border-radius:4px; vertical-align:middle; margin-right:8px; display:inline-block;">${project.title}</td>
+        <td><img src="${escapeHTML(project.image) || '../assets/images/hero-banner.png'}" width="32" height="32" style="object-fit:cover; border-radius:4px; vertical-align:middle; margin-right:8px; display:inline-block;">${escapeHTML(project.title)}</td>
         <td>₦${parseFloat(project.goal_amount).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
         <td>₦${parseFloat(project.raised_amount).toLocaleString('en-US', { minimumFractionDigits: 2 })} (${progress}%)</td>
-        <td><span class="badge" style="background:${project.status === 'active' ? 'var(--green-pale)' : project.status === 'completed' ? 'var(--bg-alt)' : 'var(--bg-alt)'}; color:var(--text-dark);">${project.status}</span></td>
+        <td><span class="badge" style="background:${project.status === 'active' ? 'var(--green-pale)' : project.status === 'completed' ? 'var(--bg-alt)' : 'var(--bg-alt)'}; color:var(--text-dark);">${escapeHTML(project.status)}</span></td>
         <td>
           <div style="display:flex; gap:8px;">
-            <button class="btn btn-sm" onclick="editProject(${project.id})">Edit</button>
-            <button class="btn btn-sm" onclick="deleteProject(${project.id})" style="color:var(--cta);">Delete</button>
+            <button class="btn btn-sm" onclick="editProject(${parseInt(project.id, 10)})">Edit</button>
+            <button class="btn btn-sm" onclick="deleteProject(${parseInt(project.id, 10)})" style="color:var(--cta);">Delete</button>
           </div>
         </td>
       `;
@@ -239,7 +261,10 @@ window.editProject = function (id) {
 
 window.deleteProject = function (id) {
     openDeleteConfirm('project', id, () => {
-        fetch(`../api/projects/${id}`, { method: 'DELETE' })
+        fetch(`../api/projects/${id}`, { 
+            method: 'DELETE',
+            headers: { 'X-CSRF-TOKEN': window.csrfToken }
+        })
             .then(() => loadProjects())
             .catch(error => console.error('Delete error:', error));
     });
@@ -252,7 +277,7 @@ document.getElementById('add-project-btn').addEventListener('click', () => {
 // ============ DONATIONS MANAGEMENT ============
 async function loadDonations() {
     try {
-        showTableSkeletons("donations-tbody", 5);
+        showTableSkeletons("donations-tbody", 6);
         const response = await fetch('../api/donations');
         const donations = await response.json();
         const tbody = document.getElementById('donations-tbody');
@@ -260,21 +285,26 @@ async function loadDonations() {
 
         donations.forEach(donation => {
             const date = new Date(donation.created_at).toLocaleDateString();
+            let phone = '-';
+            if (donation.message && donation.message.startsWith('Phone: ')) {
+                phone = donation.message.replace('Phone: ', '').trim();
+            }
             const tr = document.createElement('tr');
             tr.innerHTML = `
-        <td>${donation.donor_name}</td>
-        <td>${donation.email}</td>
+        <td>${escapeHTML(donation.donor_name)}</td>
+        <td>${escapeHTML(donation.email)}</td>
+        <td>${escapeHTML(phone)}</td>
         <td>₦${parseFloat(donation.amount).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-        <td>${date}</td>
+        <td>${escapeHTML(date)}</td>
         <td>
-          <button class="btn btn-sm" onclick="deleteDonation(${donation.id})" style="color:var(--cta);">Delete</button>
+          <button class="btn btn-sm" onclick="deleteDonation(${parseInt(donation.id, 10)})" style="color:var(--cta);">Delete</button>
         </td>
       `;
             tbody.appendChild(tr);
         });
 
         if (donations.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="5">
+            tbody.innerHTML = `<tr><td colspan="6">
                 <div class="empty-state active" style="padding: 60px 20px; display:flex; flex-direction:column; align-items:center; gap:16px; width:100%;">
                     <i data-lucide="heart" class="empty-state-icon" style="width:48px;height:48px;color:var(--text-muted);opacity:0.5;"></i>
                     <h3 class="empty-state-title" style="margin:0;color:var(--primary);font-size:1.25rem;">No Donations Yet</h3>
@@ -290,7 +320,10 @@ async function loadDonations() {
 
 window.deleteDonation = function (id) {
     openDeleteConfirm('donation', id, () => {
-        fetch(`../api/donations/${id}`, { method: 'DELETE' })
+        fetch(`../api/donations/${id}`, { 
+            method: 'DELETE',
+            headers: { 'X-CSRF-TOKEN': window.csrfToken }
+        })
             .then(() => loadDonations())
             .catch(error => console.error('Delete error:', error));
     });
@@ -310,11 +343,11 @@ async function loadGallery() {
             div.className = 'gallery-item';
             div.innerHTML = `
         <div style="position:relative; padding-bottom:100%; background:var(--bg-alt);">
-          <img src="${item.image}" alt="${item.caption}" style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover;">
+          <img src="${escapeHTML(item.image)}" alt="${escapeHTML(item.caption)}" style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover;">
           <div style="position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0); opacity:0; transition:all 0.3s ease;" class="gallery-overlay">
             <div style="position:absolute; bottom:0; left:0; right:0; background:rgba(0,0,0,0.7); color:var(--white); padding:12px; text-align:center;">
-              <p style="margin:0; font-size:0.9rem;">${item.caption || 'No caption'}</p>
-              <button class="btn btn-sm" onclick="deleteGallery(${item.id})" style="margin-top:8px; background:var(--cta); color:var(--white);">Delete</button>
+              <p style="margin:0; font-size:0.9rem;">${escapeHTML(item.caption) || 'No caption'}</p>
+              <button class="btn btn-sm" onclick="deleteGallery(${parseInt(item.id, 10)})" style="margin-top:8px; background:var(--cta); color:var(--white);">Delete</button>
             </div>
           </div>
         </div>
@@ -339,7 +372,10 @@ async function loadGallery() {
 
 window.deleteGallery = function (id) {
     openDeleteConfirm('gallery', id, () => {
-        fetch(`../api/gallery/${id}`, { method: 'DELETE' })
+        fetch(`../api/gallery/${id}`, { 
+            method: 'DELETE',
+            headers: { 'X-CSRF-TOKEN': window.csrfToken }
+        })
             .then(() => loadGallery())
             .catch(error => console.error('Delete error:', error));
     });
@@ -361,12 +397,12 @@ async function loadPartners() {
         partners.forEach(partner => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
-        <td>${partner.org_name}</td>
-        <td>${partner.contact_name || '-'}</td>
-        <td>${partner.email}</td>
-        <td><span class="badge">${partner.partnership_type || '-'}</span></td>
+        <td>${escapeHTML(partner.org_name)}</td>
+        <td>${escapeHTML(partner.contact_name) || '-'}</td>
+        <td>${escapeHTML(partner.email)}</td>
+        <td><span class="badge">${escapeHTML(partner.partnership_type) || '-'}</span></td>
         <td>
-          <button class="btn btn-sm" onclick="deletePartner(${partner.id})" style="color:var(--cta);">Delete</button>
+          <button class="btn btn-sm" onclick="deletePartner(${parseInt(partner.id, 10)})" style="color:var(--cta);">Delete</button>
         </td>
       `;
             tbody.appendChild(tr);
@@ -389,7 +425,10 @@ async function loadPartners() {
 
 window.deletePartner = function (id) {
     openDeleteConfirm('partner', id, () => {
-        fetch(`../api/partners/${id}`, { method: 'DELETE' })
+        fetch(`../api/partners/${id}`, { 
+            method: 'DELETE',
+            headers: { 'X-CSRF-TOKEN': window.csrfToken }
+        })
             .then(() => loadPartners())
             .catch(error => console.error('Delete error:', error));
     });
@@ -542,7 +581,10 @@ function initForms() {
 
             const response = await fetch(url, {
                 method,
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': window.csrfToken
+                },
                 body: JSON.stringify(formData)
             });
 
@@ -568,7 +610,10 @@ function initForms() {
         try {
             const response = await fetch('../api/gallery', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': window.csrfToken
+                },
                 body: JSON.stringify(formData)
             });
 

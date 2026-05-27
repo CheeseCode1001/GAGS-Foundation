@@ -140,6 +140,15 @@ ul {
   letter-spacing: -0.02em;
 }
 
+
+.logo-text-footer {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--bg);
+  letter-spacing: -0.02em;
+}
+
 .nav-links {
   display: flex;
   align-items: center;
@@ -260,7 +269,7 @@ ul {
   font-size: 1.5rem;
   font-weight: 600;
   font-family: 'Plus Jakarta Sans', sans-serif;
-  padding: 16px 0;
+  padding: 18px 0;
   color: var(--text-dark);
   border-bottom: 1px solid var(--border);
 }

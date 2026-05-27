@@ -31,11 +31,11 @@ function createPartner() {
     try {
         $data = getJsonBody();
         
-        $orgName = trim($data['org_name'] ?? '');
-        $email = trim($data['email'] ?? '');
+        $orgName = sanitizeString($data['org_name'] ?? '', 255);
+        $email = validateEmail($data['email'] ?? '');
         
         if (empty($orgName) || empty($email)) {
-            jsonError('Organization name and email required', 400);
+            jsonError('Valid organization name and email required', 400);
         }
         
         $pdo = getDB();
@@ -44,11 +44,11 @@ function createPartner() {
         );
         $stmt->execute([
             $orgName,
-            $data['contact_name'] ?? null,
+            sanitizeString($data['contact_name'] ?? '', 255),
             $email,
-            $data['phone'] ?? null,
-            $data['partnership_type'] ?? null,
-            $data['message'] ?? null,
+            sanitizeString($data['phone'] ?? '', 50),
+            sanitizeString($data['partnership_type'] ?? '', 100),
+            sanitizeString($data['message'] ?? '', 2000),
         ]);
         
         jsonResponse(['success' => true, 'id' => (int)$pdo->lastInsertId()]);

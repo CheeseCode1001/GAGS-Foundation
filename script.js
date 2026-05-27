@@ -1,4 +1,18 @@
 // ============ GSAP & MOTION SETUP ============
+
+function escapeHTML(str) {
+    if (str === null || str === undefined) return '';
+    return String(str).replace(/[&<>'"]/g, function(match) {
+        return {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            "'": '&#39;',
+            '"': '&quot;'
+        }[match];
+    });
+}
+
 // Wait for all scripts to load
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize Lucide icons
@@ -243,11 +257,11 @@ function initGallery() {
         div.setAttribute('data-category', (item.category || 'other').toLowerCase());
         
         div.innerHTML = `
-            <img src="${item.image}" alt="${item.caption || 'Gallery image'}">
+            <img src="${escapeHTML(item.image)}" alt="${escapeHTML(item.caption) || 'Gallery image'}">
             <div class="gallery-item-overlay">
               <div style="text-align:center; padding:16px;">
                 <i data-lucide="zoom-in" style="width:32px; height:32px; margin-bottom:8px;"></i>
-                <p style="font-size:1rem; margin:0;">${item.caption || ''}</p>
+                <p style="font-size:1rem; margin:0;">${escapeHTML(item.caption) || ''}</p>
               </div>
             </div>
         `;
@@ -411,12 +425,12 @@ function initProjects() {
 
         card.innerHTML = `
           <div class="card-image">
-            <img src="${project.image || 'assets/images/programs-skills.png'}" alt="${project.title}">
+            <img src="${escapeHTML(project.image) || 'assets/images/programs-skills.png'}" alt="${escapeHTML(project.title)}">
           </div>
           <div class="card-body">
-            <span class="card-tag" style="background:${statusColor}; color:var(--white);">${project.status.toUpperCase()}</span>
-            <h3>${project.title}</h3>
-            <p>${project.description || 'Help us make a difference'}</p>
+            <span class="card-tag" style="background:${statusColor}; color:var(--white);">${escapeHTML(project.status).toUpperCase()}</span>
+            <h3>${escapeHTML(project.title)}</h3>
+            <p>${escapeHTML(project.description) || 'Help us make a difference'}</p>
             <div style="margin-top:16px;">
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; font-size:0.9rem;">
                 <span>Goal: ₦${parseFloat(project.goal_amount).toLocaleString('en-US', { minimumFractionDigits: 2 })}</span>
@@ -488,11 +502,11 @@ function initPrograms() {
         card.style.animationDelay = (index * 0.1) + 's';
 
         card.innerHTML = `
-          <div class="card-image"><img src="${prog.image || 'assets/images/programs-skills.png'}" alt="${prog.title}"></div>
+          <div class="card-image"><img src="${escapeHTML(prog.image) || 'assets/images/programs-skills.png'}" alt="${escapeHTML(prog.title)}"></div>
           <div class="card-body">
-              <span class="card-tag">${prog.category || 'Program'}</span>
-              <h3>${prog.title}</h3>
-              <p>${prog.description || ''}</p>
+              <span class="card-tag">${escapeHTML(prog.category) || 'Program'}</span>
+              <h3>${escapeHTML(prog.title)}</h3>
+              <p>${escapeHTML(prog.description) || ''}</p>
           </div>
         `;
         grid.appendChild(card);
