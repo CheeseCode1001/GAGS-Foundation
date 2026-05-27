@@ -573,7 +573,7 @@ function initDonationForm() {
       donor_name: name,
       email: email,
       amount: amount,
-      message: phone ? \`Phone: \${phone}\` : ''
+      message: phone ? `Phone: ${phone}` : ''
     };
 
     try {
