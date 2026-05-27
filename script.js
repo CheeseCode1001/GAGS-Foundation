@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initProjects();
   initPrograms();
   initPartnerForm();
+  initDonationForm();
 });
 
 // Re-initialize lucide icons after page fully loads (backup)
@@ -242,8 +243,13 @@ function initGallery() {
         div.setAttribute('data-category', (item.category || 'other').toLowerCase());
         
         div.innerHTML = `
-            <img src="${item.image}" alt="${item.title || 'Gallery image'}">
-            <div class="gallery-item-overlay"><i data-lucide="zoom-in" style="width:32px; height:32px;"></i></div>
+            <img src="${item.image}" alt="${item.caption || 'Gallery image'}">
+            <div class="gallery-item-overlay">
+              <div style="text-align:center; padding:16px;">
+                <i data-lucide="zoom-in" style="width:32px; height:32px; margin-bottom:8px;"></i>
+                <p style="font-size:1rem; margin:0;">${item.caption || ''}</p>
+              </div>
+            </div>
         `;
         grid.appendChild(div);
       });
@@ -544,6 +550,54 @@ function initPartnerForm() {
       }
     } catch (error) {
       console.error('Partner form error:', error);
+      alert('An error occurred. Please try again.');
+    }
+  });
+}
+// ============ DONATION FORM ============
+function initDonationForm() {
+  const form = document.getElementById('donation-form');
+  const successDiv = document.getElementById('donation-success');
+  
+  if (!form) return;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const amount = document.getElementById('custom-amount').value;
+    const name = document.getElementById('donor-name').value;
+    const phone = document.getElementById('donor-phone').value;
+    const email = document.getElementById('donor-email').value;
+    
+    const formData = {
+      donor_name: name,
+      email: email,
+      amount: amount,
+      message: phone ? \`Phone: \${phone}\` : ''
+    };
+
+    try {
+      const response = await fetch('api/donations', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      if (response.ok) {
+        form.reset();
+        
+        // Hide the form and show success message
+        form.style.display = 'none';
+        if (successDiv) {
+          successDiv.style.display = 'flex';
+          successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      } else {
+        const err = await response.json();
+        alert(err.error || 'Failed to submit donation. Please try again.');
+      }
+    } catch (error) {
+      console.error('Donation form error:', error);
       alert('An error occurred. Please try again.');
     }
   });
