@@ -223,8 +223,8 @@ function initGallery() {
     return;
   }
 
-  grid.innerHTML = Array(6).fill(`
-      <div class="gallery-item skeleton" style="height: 300px; border-radius: 8px;"></div>
+  grid.innerHTML = Array(8).fill(`
+      <div class="gallery-item skeleton" style="border-radius: 8px;"></div>
   `).join('');
 
   fetch('api/gallery')
