@@ -326,7 +326,7 @@ function initProjects() {
 
   if (!grid) return;
 
-  fetch('/api/projects')
+  fetch('api/projects')
     .then(res => res.json())
     .then(projects => {
       grid.innerHTML = '';
@@ -406,7 +406,7 @@ function initPartnerForm() {
     };
 
     try {
-      const response = await fetch('/api/partners', {
+      const response = await fetch('api/partners', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

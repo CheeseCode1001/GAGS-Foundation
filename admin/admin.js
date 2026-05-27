@@ -26,7 +26,7 @@ function initLoginForm() {
         const password = document.getElementById('password').value;
 
         try {
-            const response = await fetch('/api/login', {
+            const response = await fetch('../api/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, password })
@@ -51,7 +51,7 @@ function initLoginForm() {
 // ============ AUTH CHECK & DASHBOARD INIT ============
 async function checkAuthAndInit() {
     try {
-        const response = await fetch('/api/auth-status');
+        const response = await fetch('../api/auth-status');
         const data = await response.json();
 
         if (!data.authenticated) {
@@ -101,7 +101,7 @@ function initSidebarNavigation() {
 function initLogout() {
     document.getElementById('logout-btn').addEventListener('click', async () => {
         try {
-            await fetch('/api/logout', { method: 'POST' });
+            await fetch('../api/logout', { method: 'POST' });
             window.location.href = '/admin/login.html';
         } catch (error) {
             console.error('Logout error:', error);
@@ -121,7 +121,7 @@ async function loadAllData() {
 // ============ PROGRAMS MANAGEMENT ============
 async function loadPrograms() {
     try {
-        const response = await fetch('/api/programs');
+        const response = await fetch('../api/programs');
         const programs = await response.json();
         const tbody = document.getElementById('programs-tbody');
         tbody.innerHTML = '';
@@ -158,7 +158,7 @@ window.editProgram = function (id) {
 
 window.deleteProgram = function (id) {
     openDeleteConfirm('program', id, () => {
-        fetch(`/api/programs/${id}`, { method: 'DELETE' })
+        fetch(`../api/programs/${id}`, { method: 'DELETE' })
             .then(() => loadPrograms())
             .catch(error => console.error('Delete error:', error));
     });
@@ -171,7 +171,7 @@ document.getElementById('add-program-btn').addEventListener('click', () => {
 // ============ PROJECTS MANAGEMENT ============
 async function loadProjects() {
     try {
-        const response = await fetch('/api/projects');
+        const response = await fetch('../api/projects');
         const projects = await response.json();
         const tbody = document.getElementById('projects-tbody');
         tbody.innerHTML = '';
@@ -208,7 +208,7 @@ window.editProject = function (id) {
 
 window.deleteProject = function (id) {
     openDeleteConfirm('project', id, () => {
-        fetch(`/api/projects/${id}`, { method: 'DELETE' })
+        fetch(`../api/projects/${id}`, { method: 'DELETE' })
             .then(() => loadProjects())
             .catch(error => console.error('Delete error:', error));
     });
@@ -221,7 +221,7 @@ document.getElementById('add-project-btn').addEventListener('click', () => {
 // ============ DONATIONS MANAGEMENT ============
 async function loadDonations() {
     try {
-        const response = await fetch('/api/donations');
+        const response = await fetch('../api/donations');
         const donations = await response.json();
         const tbody = document.getElementById('donations-tbody');
         tbody.innerHTML = '';
@@ -251,7 +251,7 @@ async function loadDonations() {
 
 window.deleteDonation = function (id) {
     openDeleteConfirm('donation', id, () => {
-        fetch(`/api/donations/${id}`, { method: 'DELETE' })
+        fetch(`../api/donations/${id}`, { method: 'DELETE' })
             .then(() => loadDonations())
             .catch(error => console.error('Delete error:', error));
     });
@@ -260,7 +260,7 @@ window.deleteDonation = function (id) {
 // ============ GALLERY MANAGEMENT ============
 async function loadGallery() {
     try {
-        const response = await fetch('/api/gallery');
+        const response = await fetch('../api/gallery');
         const gallery = await response.json();
         const grid = document.getElementById('gallery-grid');
         grid.innerHTML = '';
@@ -292,7 +292,7 @@ async function loadGallery() {
 
 window.deleteGallery = function (id) {
     openDeleteConfirm('gallery', id, () => {
-        fetch(`/api/gallery/${id}`, { method: 'DELETE' })
+        fetch(`../api/gallery/${id}`, { method: 'DELETE' })
             .then(() => loadGallery())
             .catch(error => console.error('Delete error:', error));
     });
@@ -305,7 +305,7 @@ document.getElementById('add-gallery-btn').addEventListener('click', () => {
 // ============ PARTNERS MANAGEMENT ============
 async function loadPartners() {
     try {
-        const response = await fetch('/api/partners');
+        const response = await fetch('../api/partners');
         const partners = await response.json();
         const tbody = document.getElementById('partners-tbody');
         tbody.innerHTML = '';
@@ -334,7 +334,7 @@ async function loadPartners() {
 
 window.deletePartner = function (id) {
     openDeleteConfirm('partner', id, () => {
-        fetch(`/api/partners/${id}`, { method: 'DELETE' })
+        fetch(`../api/partners/${id}`, { method: 'DELETE' })
             .then(() => loadPartners())
             .catch(error => console.error('Delete error:', error));
     });
@@ -446,7 +446,7 @@ async function openFormModal(type, id = null) {
 
     if (id) {
         // Load existing data
-        const endpoint = type === 'program' ? `/api/programs` : `/api/projects`;
+        const endpoint = type === 'program' ? `../api/programs` : `../api/projects`;
         const response = await fetch(endpoint);
         const items = await response.json();
         const item = items.find(i => i.id === id);
@@ -481,7 +481,7 @@ function initForms() {
         });
 
         try {
-            const endpoint = currentFormType === 'program' ? '/api/programs' : '/api/projects';
+            const endpoint = currentFormType === 'program' ? '../api/programs' : '../api/projects';
             const method = currentFormId ? 'PUT' : 'POST';
             const url = currentFormId ? `${endpoint}/${currentFormId}` : endpoint;
 
@@ -510,7 +510,7 @@ function initForms() {
         formData.append('category', document.getElementById('gallery-category').value);
 
         try {
-            const response = await fetch('/api/gallery', {
+            const response = await fetch('../api/gallery', {
                 method: 'POST',
                 body: formData
             });

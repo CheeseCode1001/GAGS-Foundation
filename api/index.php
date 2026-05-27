@@ -42,7 +42,7 @@ $uri = rtrim($uri, '/');
 
 // Normalize: extract path after /api
 // Handle both /api/programs and /api/programs/5
-if (preg_match('#^/api(/.*)?$#', $uri, $matches)) {
+if (preg_match('#/api(?:/index\.php)?(/.*)?$#', $uri, $matches)) {
     $path = $matches[1] ?? '';
 } else {
     jsonError('Not Found', 404);
