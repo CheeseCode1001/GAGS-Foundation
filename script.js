@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initPrograms();
   initPartnerForm();
   initDonationForm();
+  initContactForm();
 });
 
 // Re-initialize lucide icons after page fully loads (backup)
@@ -617,3 +618,54 @@ function initDonationForm() {
   });
 }
 
+// ============ CONTACT FORM ============
+function initContactForm() {
+  const form = document.getElementById('contact-form');
+  const successDiv = document.getElementById('contact-success');
+
+  if (!form) return;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = {
+      name: document.getElementById('contact-name').value,
+      email: document.getElementById('contact-email').value,
+      phone: document.getElementById('contact-phone').value,
+      subject: document.getElementById('contact-subject').value,
+      message: document.getElementById('contact-message').value
+    };
+
+    try {
+      const response = await fetch('api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      if (response.ok) {
+        form.reset();
+        
+        if (successDiv) {
+          successDiv.style.display = 'block';
+          
+          if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+          }
+
+          setTimeout(() => {
+            successDiv.style.display = 'none';
+          }, 5000);
+        } else {
+          alert('Message sent successfully!');
+        }
+      } else {
+        const err = await response.json();
+        alert(err.error || 'Failed to send message. Please try again.');
+      }
+    } catch (error) {
+      console.error('Contact form error:', error);
+      alert('An error occurred. Please try again.');
+    }
+  });
+}

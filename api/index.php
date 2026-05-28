@@ -69,6 +69,7 @@ if (in_array($method, ['POST', 'PUT', 'DELETE'])) {
     $csrfExempt = (
         ($resource === 'donations' && $method === 'POST') ||
         ($resource === 'partners' && $method === 'POST') ||
+        ($resource === 'contact' && $method === 'POST') ||
         ($resource === 'login' && $method === 'POST')
     );
 
@@ -114,6 +115,11 @@ switch ($resource) {
     case 'partners':
         require_once $routesDir . '/partners_routes.php';
         handlePartnersRoute($method, $id);
+        break;
+
+    case 'contact':
+        require_once $routesDir . '/contact_routes.php';
+        handleContactRoute($method, $id);
         break;
         
     default:

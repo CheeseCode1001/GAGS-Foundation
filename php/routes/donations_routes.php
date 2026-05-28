@@ -64,8 +64,108 @@ function createDonation() {
             sanitizeString($data['message'] ?? '', 1000),
         ]);
         
-        jsonResponse(['success' => true, 'id' => (int)$pdo->lastInsertId()]);
-    } catch (PDOException $e) {
+        $donationId = (int)$pdo->lastInsertId();
+
+        // Send Notification to Admin
+        $adminSubject = "New Donation Received: ₦" . number_format($amount, 2);
+        $adminHtml = "
+        <!DOCTYPE html>
+        <html>
+        <head><meta charset='utf-8'></head>
+        <body style='margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #F5F0EB; color: #4a4a4a;'>
+            <table align='center' border='0' cellpadding='0' cellspacing='0' width='100%' style='max-width: 600px; margin: 30px auto; background-color: #ffffff; border: 1px solid #EDE8E2; border-collapse: collapse;'>
+                <tr>
+                    <td align='center' bgcolor='#1B4332' style='padding: 20px; color: #ffffff;'>
+                        <h1 style='margin: 0; font-size: 20px; font-weight: bold;'>New Donation Alert</h1>
+                    </td>
+                </tr>
+                <tr>
+                    <td style='padding: 30px;'>
+                        <p style='margin: 0 0 20px 0; font-size: 16px;'>You have received a new donation:</p>
+                        <table border='0' cellpadding='8' cellspacing='0' width='100%' style='border-collapse: collapse; margin-bottom: 20px;'>
+                            <tr style='background-color: #F5F0EB;'>
+                                <td width='30%' style='font-weight: bold; border-bottom: 1px solid #EDE8E2;'>Donor Name:</td>
+                                <td style='border-bottom: 1px solid #EDE8E2;'>" . htmlspecialchars($donorName) . "</td>
+                            </tr>
+                            <tr>
+                                <td style='font-weight: bold; border-bottom: 1px solid #EDE8E2;'>Email:</td>
+                                <td style='border-bottom: 1px solid #EDE8E2;'><a href='mailto:" . htmlspecialchars($email) . "' style='color: #E76F51; text-decoration: none;'>" . htmlspecialchars($email) . "</a></td>
+                            </tr>
+                            <tr style='background-color: #F5F0EB;'>
+                                <td style='font-weight: bold; border-bottom: 1px solid #EDE8E2;'>Amount:</td>
+                                <td style='border-bottom: 1px solid #EDE8E2;'>₦" . number_format($amount, 2) . "</td>
+                            </tr>
+                            <tr>
+                                <td style='font-weight: bold; border-bottom: 1px solid #EDE8E2;'>Message:</td>
+                                <td style='border-bottom: 1px solid #EDE8E2;'>" . htmlspecialchars($data['message'] ?? '') . "</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </body>
+        </html>";
+        sendEmail(SMTP_USER, $adminSubject, $adminHtml);
+
+        // Prepare attachments for user email
+        $attachments = [];
+        $logoPath = dirname(__DIR__, 2) . '/assets/images/logo.png';
+        if (file_exists($logoPath)) {
+            $attachments[] = [
+                'path' => $logoPath,
+                'name' => 'logo.png',
+                'cid' => 'logo',
+                'disposition' => 'inline',
+                'type' => 'image/png'
+            ];
+        }
+
+        // Send Thank You to Donor
+        $userSubject = "Certificate of Appreciation - GAGS Foundation";
+        $userHtml = "
+        <!DOCTYPE html>
+        <html>
+        <head><meta charset='utf-8'></head>
+        <body style='margin: 0; padding: 0; font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif; background-color: #F5F0EB; color: #4a4a4a;'>
+            <table align='center' border='0' cellpadding='0' cellspacing='0' width='100%' style='max-width: 600px; margin: 30px auto; background-color: #ffffff; border: 1px solid #EDE8E2; border-collapse: collapse;'>
+                <tr>
+                    <td align='center' bgcolor='#1B4332' style='padding: 40px 20px; color: #ffffff;'>
+                        <img src='cid:logo' alt='GAGS Foundation Logo' style='display: block; width: 60px; height: 60px; margin-bottom: 15px;'>
+                        <h1 style='margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.02em;'>GAGS FOUNDATION</h1>
+                    </td>
+                </tr>
+                <tr>
+                    <td style='padding: 40px 30px; text-align: center;'>
+                        <h2 style='margin: 0 0 20px 0; color: #E76F51; font-size: 22px;'>Thank You For Your Generosity!</h2>
+                        <p style='margin: 0 0 20px 0; font-size: 16px; line-height: 1.6; text-align: left;'>
+                            Dear " . htmlspecialchars($donorName) . ",<br><br>
+                            We deeply appreciate your generous donation of <strong>₦" . number_format($amount, 2) . "</strong>. Your contribution plays a crucial role in empowering our communities and transforming lives.
+                        </p>
+                        <p style='margin: 0 0 30px 0; font-size: 16px; line-height: 1.6; text-align: left;'>
+                            With your support, we can continue to build a stronger foundation for those who need it most.
+                        </p>
+                        <table align='center' border='0' cellpadding='0' cellspacing='0' style='margin: 0 auto 30px auto;'>
+                            <tr>
+                                <td align='center' bgcolor='#1B4332'>
+                                    <a href='https://gagsfoundation.org/projects.html' target='_blank' style='display: inline-block; padding: 14px 28px; font-size: 15px; font-weight: 600; color: #ffffff; text-decoration: none;'>See Your Impact</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td bgcolor='#1B4332' style='padding: 30px; text-align: center; color: rgba(255,255,255,0.7); font-size: 12px; line-height: 1.6;'>
+                        <p style='margin: 0 0 10px 0; color: #ffffff; font-weight: 600; font-size: 14px;'>GAGS Foundation</p>
+                        <p style='margin: 0 0 15px 0;'>Contact Us: info@gagsfoundation.org</p>
+                        <p style='margin: 0;'>&copy; 2026 GAGS Foundation. All rights reserved.</p>
+                    </td>
+                </tr>
+            </table>
+        </body>
+        </html>";
+        sendEmail($email, $userSubject, $userHtml, '', $attachments);
+
+        jsonResponse(['success' => true, 'id' => $donationId]);
         error_log('Create donation error: ' . $e->getMessage());
         jsonError('Failed to create donation', 500);
     }

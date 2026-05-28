@@ -234,3 +234,95 @@ if (!function_exists('validateStatus')) {
         return in_array($status, $allowed, true) ? $status : $allowed[0];
     }
 }
+
+// ===============================
+// SMTP / EMAIL CONFIGURATION
+// ===============================
+define('SMTP_HOST', 'smtp.gmail.com');
+define('SMTP_PORT', 587);
+define('SMTP_USER', 'gagsfoundation@gmail.com');
+define('SMTP_PASS', 'YOUR_GMAIL_APP_PASSWORD'); // TODO: Replace this with your 16-character App Password
+define('SMTP_FROM', 'gagsfoundation@gmail.com');
+define('SMTP_FROM_NAME', 'GAGS Foundation');
+
+// Load PHPMailer classes
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
+
+if (!function_exists('sendEmail')) {
+    /**
+     * Send an email using SMTP via PHPMailer
+     * 
+     * @param string $to Recipient email address
+     * @param string $subject Email subject
+     * @param string $htmlBody HTML body content
+     * @param string $plainBody Optional plain text fallback
+     * @param array $attachments Optional array of attachments (each: ['path', 'name', 'cid', 'disposition'])
+     * @return bool True on success, false on failure
+     */
+    function sendEmail($to, $subject, $htmlBody, $plainBody = '', $attachments = [])
+    {
+        // Require PHPMailer files manually
+        require_once __DIR__ . '/libs/PHPMailer/Exception.php';
+        require_once __DIR__ . '/libs/PHPMailer/PHPMailer.php';
+        require_once __DIR__ . '/libs/PHPMailer/SMTP.php';
+
+        // Check if the password is still the default placeholder
+        if (SMTP_PASS === '' || SMTP_PASS === 'YOUR_GMAIL_APP_PASSWORD') {
+            error_log("SMTP Error: Gmail App Password is not configured in config.php. Skipping email send.");
+            return false;
+        }
+
+        $mail = new PHPMailer(true);
+
+        try {
+            // Server settings
+            $mail->isSMTP();
+            $mail->Host       = SMTP_HOST;
+            $mail->SMTPAuth   = true;
+            $mail->Username   = SMTP_USER;
+            $mail->Password   = SMTP_PASS;
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port       = SMTP_PORT;
+            $mail->CharSet    = 'UTF-8';
+
+            // Timeout settings (email sending shouldn't hang forever)
+            $mail->Timeout    = 15;
+
+            // Recipients
+            $mail->setFrom(SMTP_FROM, SMTP_FROM_NAME);
+            $mail->addAddress($to);
+
+            // Attachments & Inline Images
+            if (!empty($attachments)) {
+                foreach ($attachments as $attachment) {
+                    if (isset($attachment['path']) && file_exists($attachment['path'])) {
+                        $name = $attachment['name'] ?? '';
+                        $encoding = $attachment['encoding'] ?? 'base64';
+                        $type = $attachment['type'] ?? '';
+                        $disposition = $attachment['disposition'] ?? 'attachment';
+                        
+                        if ($disposition === 'inline' && isset($attachment['cid'])) {
+                            $mail->addEmbeddedImage($attachment['path'], $attachment['cid'], $name, $encoding, $type);
+                        } else {
+                            $mail->addAttachment($attachment['path'], $name, $encoding, $type);
+                        }
+                    }
+                }
+            }
+
+            // Content
+            $mail->isHTML(true);
+            $mail->Subject = $subject;
+            $mail->Body    = $htmlBody;
+            $mail->AltBody = $plainBody ?: strip_tags($htmlBody);
+
+            $mail->send();
+            return true;
+        } catch (Exception $e) {
+            error_log("Mail sending failed to $to: " . $mail->ErrorInfo);
+            return false;
+        }
+    }
+}
