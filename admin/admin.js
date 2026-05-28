@@ -124,8 +124,16 @@ function initSidebarNavigation() {
                 s.classList.remove('active');
             });
             document.getElementById(`${section}-section`).classList.add('active');
+
+            window.location.hash = section;
         });
     });
+
+    const hash = window.location.hash.replace('#', '');
+    if (hash) {
+        const activeLink = document.querySelector(`.sidebar-link[data-section="${hash}"]`);
+        if (activeLink) activeLink.click();
+    }
 }
 
 // ============ LOGOUT ============
@@ -150,6 +158,8 @@ async function loadAllData() {
     await loadDonations();
     await loadGallery();
     await loadPartners();
+    await loadContacts();
+    initSearchFilters();
 }
 
 // ============ PROGRAMS MANAGEMENT ============
@@ -433,6 +443,94 @@ window.deletePartner = function (id) {
             .catch(error => console.error('Delete error:', error));
     });
 };
+
+// ============ CONTACTS MANAGEMENT ============
+async function loadContacts() {
+    try {
+        showTableSkeletons("contacts-tbody", 7);
+        const response = await fetch('../api/contact');
+        const contacts = await response.json();
+        const tbody = document.getElementById('contacts-tbody');
+        tbody.innerHTML = '';
+
+        contacts.forEach(contact => {
+            const date = new Date(contact.created_at).toLocaleDateString();
+            const initial = escapeHTML(contact.name).charAt(0).toUpperCase() || '?';
+            const colors = ['#E76F51', '#2A9D8F', '#E9C46A', '#F4A261', '#264653'];
+            const colorIndex = (contact.name || '').length % colors.length;
+            const bgColor = colors[colorIndex];
+
+            const avatarHtml = `<div style="width:32px; height:32px; border-radius:50%; background-color:${bgColor}; color:white; display:flex; align-items:center; justify-content:center; font-weight:bold; margin-right:8px; display:inline-flex; vertical-align:middle;">${initial}</div>`;
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+        <td>${avatarHtml}${escapeHTML(contact.name)}</td>
+        <td>${escapeHTML(contact.email)}</td>
+        <td>${escapeHTML(contact.phone || '-')}</td>
+        <td>${escapeHTML(contact.subject || '-')}</td>
+        <td>${escapeHTML((contact.message || '').substring(0, 50))}...</td>
+        <td>${escapeHTML(date)}</td>
+        <td>
+          <button class="btn btn-sm" onclick="deleteContact(${parseInt(contact.id, 10)})" style="color:var(--cta);">Delete</button>
+        </td>
+      `;
+            tbody.appendChild(tr);
+        });
+
+        if (contacts.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="7">
+                <div class="empty-state active" style="padding: 60px 20px; display:flex; flex-direction:column; align-items:center; gap:16px; width:100%;">
+                    <i data-lucide="mail" class="empty-state-icon" style="width:48px;height:48px;color:var(--text-muted);opacity:0.5;"></i>
+                    <h3 class="empty-state-title" style="margin:0;color:var(--primary);font-size:1.25rem;">No Messages Yet</h3>
+                    <p class="empty-state-desc" style="margin:0;color:var(--text-muted);">You don't have any contact messages yet.</p>
+                </div>
+            </td></tr>`;
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+    } catch (error) {
+        console.error('Load contacts error:', error);
+    }
+}
+
+window.deleteContact = function (id) {
+    openDeleteConfirm('contact message', id, () => {
+        fetch(`../api/contact/${id}`, { 
+            method: 'DELETE',
+            headers: { 'X-CSRF-TOKEN': window.csrfToken }
+        })
+            .then(() => loadContacts())
+            .catch(error => console.error('Delete error:', error));
+    });
+};
+
+// ============ SEARCH FILTERS ============
+function initSearchFilters() {
+    const searchInputs = document.querySelectorAll('.section-search');
+    searchInputs.forEach(input => {
+        input.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const targetId = input.dataset.target;
+            const container = document.getElementById(targetId);
+            if (!container) return;
+
+            if (container.tagName === 'TBODY') {
+                const rows = container.querySelectorAll('tr');
+                rows.forEach(row => {
+                    if (row.querySelector('.empty-state')) return;
+                    const text = row.textContent.toLowerCase();
+                    row.style.display = text.includes(query) ? '' : 'none';
+                });
+            } else if (targetId === 'gallery-grid') {
+                const items = container.querySelectorAll('.gallery-item');
+                items.forEach(item => {
+                    if (item.querySelector('.empty-state')) return;
+                    const text = item.textContent.toLowerCase();
+                    item.style.display = text.includes(query) ? '' : 'none';
+                });
+            }
+        });
+    });
+}
 
 // ============ MODALS ============
 function initModals() {

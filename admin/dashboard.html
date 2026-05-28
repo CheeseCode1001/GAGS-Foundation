@@ -44,6 +44,10 @@
                 <i data-lucide="users" style="width:18px; height:18px;"></i>
                 <span>Partners</span>
             </a>
+            <a href="#" data-section="contacts" class="sidebar-link">
+                <i data-lucide="mail" style="width:18px; height:18px;"></i>
+                <span>Contacts</span>
+            </a>
         </nav>
 
         <div class="sidebar-footer">
@@ -75,10 +79,13 @@
                         <h2>Programs Management</h2>
                         <p style="color:var(--text-muted); margin:0;">Manage foundation programs and services</p>
                     </div>
-                    <button class="btn btn-primary" id="add-program-btn">
-                        <i data-lucide="plus" style="width:16px; height:16px; margin-right:8px;"></i>
-                        Add Program
-                    </button>
+                    <div style="display:flex; gap:12px; align-items:center;">
+                        <input type="search" class="section-search" data-target="programs-tbody" placeholder="Search programs..." style="padding: 8px 12px; border: 1px solid var(--border); border-radius: 4px; outline: none; width: 200px;">
+                        <button class="btn btn-primary" id="add-program-btn">
+                            <i data-lucide="plus" style="width:16px; height:16px; margin-right:8px;"></i>
+                            Add Program
+                        </button>
+                    </div>
                 </div>
 
                 <div class="table-container">
@@ -105,10 +112,13 @@
                         <h2>Projects Management</h2>
                         <p style="color:var(--text-muted); margin:0;">Manage donation projects</p>
                     </div>
-                    <button class="btn btn-primary" id="add-project-btn">
-                        <i data-lucide="plus" style="width:16px; height:16px; margin-right:8px;"></i>
-                        Add Project
-                    </button>
+                    <div style="display:flex; gap:12px; align-items:center;">
+                        <input type="search" class="section-search" data-target="projects-tbody" placeholder="Search projects..." style="padding: 8px 12px; border: 1px solid var(--border); border-radius: 4px; outline: none; width: 200px;">
+                        <button class="btn btn-primary" id="add-project-btn">
+                            <i data-lucide="plus" style="width:16px; height:16px; margin-right:8px;"></i>
+                            Add Project
+                        </button>
+                    </div>
                 </div>
 
                 <div class="table-container">
@@ -136,6 +146,7 @@
                         <h2>Donations</h2>
                         <p style="color:var(--text-muted); margin:0;">View all donations</p>
                     </div>
+                    <input type="search" class="section-search" data-target="donations-tbody" placeholder="Search donations..." style="padding: 8px 12px; border: 1px solid var(--border); border-radius: 4px; outline: none; width: 200px;">
                 </div>
 
                 <div class="table-container">
@@ -164,10 +175,13 @@
                         <h2>Gallery Management</h2>
                         <p style="color:var(--text-muted); margin:0;">Manage gallery images</p>
                     </div>
-                    <button class="btn btn-primary" id="add-gallery-btn">
-                        <i data-lucide="plus" style="width:16px; height:16px; margin-right:8px;"></i>
-                        Upload Image
-                    </button>
+                    <div style="display:flex; gap:12px; align-items:center;">
+                        <input type="search" class="section-search" data-target="gallery-grid" placeholder="Search gallery..." style="padding: 8px 12px; border: 1px solid var(--border); border-radius: 4px; outline: none; width: 200px;">
+                        <button class="btn btn-primary" id="add-gallery-btn">
+                            <i data-lucide="plus" style="width:16px; height:16px; margin-right:8px;"></i>
+                            Upload Image
+                        </button>
+                    </div>
                 </div>
 
                 <div id="gallery-grid"
@@ -183,6 +197,7 @@
                         <h2>Partnership Applications</h2>
                         <p style="color:var(--text-muted); margin:0;">Review partnership applications</p>
                     </div>
+                    <input type="search" class="section-search" data-target="partners-tbody" placeholder="Search partners..." style="padding: 8px 12px; border: 1px solid var(--border); border-radius: 4px; outline: none; width: 200px;">
                 </div>
 
                 <div class="table-container">
@@ -198,6 +213,36 @@
                         </thead>
                         <tbody id="partners-tbody">
                             <!-- Partners loaded from API -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ============ CONTACTS SECTION ============ -->
+            <section id="contacts-section" class="admin-section">
+                <div class="section-header-admin">
+                    <div>
+                        <h2>Contact Messages</h2>
+                        <p style="color:var(--text-muted); margin:0;">Review messages from the contact form</p>
+                    </div>
+                    <input type="search" class="section-search" data-target="contacts-tbody" placeholder="Search contacts..." style="padding: 8px 12px; border: 1px solid var(--border); border-radius: 4px; outline: none; width: 200px;">
+                </div>
+
+                <div class="table-container">
+                    <table id="contacts-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone Number</th>
+                                <th>Subject</th>
+                                <th>Message</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="contacts-tbody">
+                            <!-- Contacts loaded from API -->
                         </tbody>
                     </table>
                 </div>

@@ -166,6 +166,7 @@ function createDonation() {
         sendEmail($email, $userSubject, $userHtml, '', $attachments);
 
         jsonResponse(['success' => true, 'id' => $donationId]);
+    } catch (Exception $e) {
         error_log('Create donation error: ' . $e->getMessage());
         jsonError('Failed to create donation', 500);
     }
