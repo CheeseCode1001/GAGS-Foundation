@@ -62,16 +62,7 @@ function submitContact() {
                 'type' => 'image/png'
             ];
         }
-        $bannerPath = dirname(__DIR__, 2) . '/assets/images/hero-banner.png';
-        if (file_exists($bannerPath)) {
-            $attachments[] = [
-                'path' => $bannerPath,
-                'name' => 'hero-banner.png',
-                'cid' => 'banner',
-                'disposition' => 'inline',
-                'type' => 'image/png'
-            ];
-        }
+
 
         // 3. Send Notification to Admin (gagsfoundation@gmail.com)
         $adminSubject = "New Contact Inquiry from " . $name;
@@ -134,11 +125,7 @@ function submitContact() {
                         <p style='margin: 5px 0 0 0; font-size: 14px; color: #B7E4C7; letter-spacing: 1px; text-transform: uppercase;'>Empowering Communities, Transforming Lives</p>
                     </td>
                 </tr>
-                <tr>
-                    <td align='center' style='border-bottom: 1px solid #EDE8E2;'>
-                        <img src='cid:banner' alt='GAGS Banner' style='display: block; width: 100%; max-width: 600px; height: auto;'>
-                    </td>
-                </tr>
+
                 <tr>
                     <td style='padding: 40px 30px;'>
                         <h2 style='margin: 0 0 20px 0; color: #1B4332; font-size: 20px; font-weight: 700; border-bottom: 2px solid #EDE8E2; padding-bottom: 10px;'>Dear " . htmlspecialchars($name) . ",</h2>
