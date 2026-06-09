@@ -67,7 +67,7 @@ function createDonation() {
         $donationId = (int)$pdo->lastInsertId();
 
         // Send Notification to Admin
-        $adminSubject = "New Donation Received: ₦" . number_format($amount, 2);
+        $adminSubject = "New Donation Received: $" . number_format($amount, 2);
         $adminHtml = "
         <!DOCTYPE html>
         <html>
@@ -93,7 +93,7 @@ function createDonation() {
                             </tr>
                             <tr style='background-color: #F5F0EB;'>
                                 <td style='font-weight: bold; border-bottom: 1px solid #EDE8E2;'>Amount:</td>
-                                <td style='border-bottom: 1px solid #EDE8E2;'>₦" . number_format($amount, 2) . "</td>
+                                <td style='border-bottom: 1px solid #EDE8E2;'>$" . number_format($amount, 2) . "</td>
                             </tr>
                             <tr>
                                 <td style='font-weight: bold; border-bottom: 1px solid #EDE8E2;'>Message:</td>
@@ -139,7 +139,7 @@ function createDonation() {
                         <h2 style='margin: 0 0 20px 0; color: #E76F51; font-size: 22px;'>Thank You For Your Generosity!</h2>
                         <p style='margin: 0 0 20px 0; font-size: 16px; line-height: 1.6; text-align: left;'>
                             Dear " . htmlspecialchars($donorName) . ",<br><br>
-                            We deeply appreciate your generous donation of <strong>₦" . number_format($amount, 2) . "</strong>. Your contribution plays a crucial role in empowering our communities and transforming lives.
+                            We deeply appreciate your generous donation of <strong>$" . number_format($amount, 2) . "</strong>. Your contribution plays a crucial role in empowering our communities and transforming lives.
                         </p>
                         <p style='margin: 0 0 30px 0; font-size: 16px; line-height: 1.6; text-align: left;'>
                             With your support, we can continue to build a stronger foundation for those who need it most.

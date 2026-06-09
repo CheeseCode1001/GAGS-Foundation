@@ -237,8 +237,8 @@ async function loadProjects() {
             const tr = document.createElement('tr');
             tr.innerHTML = `
         <td><img src="${escapeHTML(project.image) || '../assets/images/hero-banner.png'}" width="32" height="32" style="object-fit:cover; border-radius:4px; vertical-align:middle; margin-right:8px; display:inline-block;">${escapeHTML(project.title)}</td>
-        <td>₦${parseFloat(project.goal_amount).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-        <td>₦${parseFloat(project.raised_amount).toLocaleString('en-US', { minimumFractionDigits: 2 })} (${progress}%)</td>
+        <td>$${parseFloat(project.goal_amount).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+        <td>$${parseFloat(project.raised_amount).toLocaleString('en-US', { minimumFractionDigits: 2 })} (${progress}%)</td>
         <td><span class="badge" style="background:${project.status === 'active' ? 'var(--green-pale)' : project.status === 'completed' ? 'var(--bg-alt)' : 'var(--bg-alt)'}; color:var(--text-dark);">${escapeHTML(project.status)}</span></td>
         <td>
           <div style="display:flex; gap:8px;">
@@ -304,7 +304,7 @@ async function loadDonations() {
         <td>${escapeHTML(donation.donor_name)}</td>
         <td>${escapeHTML(donation.email)}</td>
         <td>${escapeHTML(phone)}</td>
-        <td>₦${parseFloat(donation.amount).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+        <td>$${parseFloat(donation.amount).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
         <td>${escapeHTML(date)}</td>
         <td>
           <button class="btn btn-sm" onclick="deleteDonation(${parseInt(donation.id, 10)})" style="color:var(--cta);">Delete</button>
@@ -614,11 +614,11 @@ async function openFormModal(type, id = null) {
         <textarea id="description" placeholder="Project description" rows="4"></textarea>
       </div>
       <div class="form-group">
-        <label for="goal_amount">Goal Amount (₦)</label>
+        <label for="goal_amount">Goal Amount ($)</label>
         <input type="number" id="goal_amount" placeholder="0" step="0.01">
       </div>
       <div class="form-group">
-        <label for="raised_amount">Raised Amount (₦)</label>
+        <label for="raised_amount">Raised Amount ($)</label>
         <input type="number" id="raised_amount" placeholder="0" step="0.01">
       </div>
       <div class="form-group">

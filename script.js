@@ -434,14 +434,14 @@ function initProjects() {
             <p>${escapeHTML(project.description) || 'Help us make a difference'}</p>
             <div style="margin-top:16px;">
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; font-size:0.9rem;">
-                <span>Goal: ₦${parseFloat(project.goal_amount).toLocaleString('en-US', { minimumFractionDigits: 2 })}</span>
+                <span>Goal: $${parseFloat(project.goal_amount).toLocaleString('en-US', { minimumFractionDigits: 2 })}</span>
                 <span style="font-weight:700; color:var(--cta);">${progress}%</span>
               </div>
               <div style="height:8px; background:var(--bg-alt);">
                 <div style="width:${progress}%; height:100%; background:var(--primary); transition:width 0.3s ease;"></div>
               </div>
               <div style="margin-top:12px; font-size:0.85rem; color:var(--text-muted);">
-                Raised: ₦${parseFloat(project.raised_amount).toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                Raised: $${parseFloat(project.raised_amount).toLocaleString('en-US', { minimumFractionDigits: 2 })}
               </div>
             </div>
           </div>
