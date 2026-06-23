@@ -138,7 +138,7 @@ function submitContact() {
                         <table align='center' border='0' cellpadding='0' cellspacing='0' style='margin: 0 auto 30px auto;'>
                             <tr>
                                 <td align='center' bgcolor='#E76F51'>
-                                    <a href='https://gagsfoundation.org/programs.html' target='_blank' style='display: inline-block; padding: 14px 28px; font-size: 15px; font-weight: 600; color: #ffffff; text-decoration: none;'>Explore Our Programs</a>
+                                    <a href='https://gags.org.ng/programs.html' target='_blank' style='display: inline-block; padding: 14px 28px; font-size: 15px; font-weight: 600; color: #ffffff; text-decoration: none;'>Explore Our Programs</a>
                                 </td>
                             </tr>
                         </table>

@@ -147,7 +147,7 @@ function createDonation() {
                         <table align='center' border='0' cellpadding='0' cellspacing='0' style='margin: 0 auto 30px auto;'>
                             <tr>
                                 <td align='center' bgcolor='#1B4332'>
-                                    <a href='https://gagsfoundation.org/projects.html' target='_blank' style='display: inline-block; padding: 14px 28px; font-size: 15px; font-weight: 600; color: #ffffff; text-decoration: none;'>See Your Impact</a>
+                                    <a href='https://gags.org.ng/projects.html' target='_blank' style='display: inline-block; padding: 14px 28px; font-size: 15px; font-weight: 600; color: #ffffff; text-decoration: none;'>See Your Impact</a>
                                 </td>
                             </tr>
                         </table>
