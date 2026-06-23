@@ -239,7 +239,7 @@ if (!function_exists('validateStatus')) {
 // SMTP / EMAIL CONFIGURATION
 // ===============================
 define('SMTP_HOST', 'smtp.gmail.com');
-define('SMTP_PORT', 587);
+define('SMTP_PORT', 465);
 define('SMTP_USER', 'gagsfoundation@gmail.com');
 define('SMTP_PASS', '');
 define('SMTP_FROM', 'gagsfoundation@gmail.com');
